@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 ---
 
 <BaseLayout
@@ -56,7 +57,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
   </div>
 </BaseLayout>
 
-<script define:vars={{ apiUrl }}>
+<script define:vars={{ apiUrl, apiKey }}>
   document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
@@ -69,7 +70,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
     try {
       const res = await fetch(`${apiUrl}/api/ecomail/subscribe`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
         body: JSON.stringify({
           email: form.email.value,
           name: form.name.value,

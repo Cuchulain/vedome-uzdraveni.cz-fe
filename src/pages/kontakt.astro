@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 
 const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 ---
 
 <BaseLayout title="Kontakt" description="Kontaktní informace – Vědomé Uzdravení, Jan Čejka.">
@@ -62,7 +63,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
   </div>
 </BaseLayout>
 
-<script define:vars={{ apiUrl }}>
+<script define:vars={{ apiUrl, apiKey }}>
   const form = document.getElementById('contact-form');
   const btn = document.getElementById('submit-btn');
   const errorBox = document.getElementById('form-error');
@@ -84,7 +85,7 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
     try {
       const res = await fetch(`${apiUrl}/api/contact`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
         body: JSON.stringify(data),
       });
 
