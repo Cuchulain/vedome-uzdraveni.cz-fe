@@ -1,6 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import logoTransparent from '../assets/logo-transparent.png';
+import profilePhoto from '../assets/profilovka-ctverec.png';
 
 const testimonials = await getCollection('testimonials');
 const testimonialsWithContent = await Promise.all(
@@ -41,44 +44,73 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
   <!-- Příběh -->
   <section class="max-w-3xl mx-auto px-4 py-16">
     <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">Můj příběh</h2>
-    <div class="space-y-4 text-text">
-      <p>
-        Zjistil jsem, že mám <strong>Dnu</strong> – geneticky podmíněnou poruchu metabolismu purinů.
-        Kyselina močová se mi usazovala v kloubech v podobě ostrých jehliček. Bolelo to jako čert
-        a záchvaty se zkracovaly.
-      </p>
-      <p>
-        Lékaři říkali: celoživotní dieta, léky, nevyléčitelné. Já jsem si řekl – to je ptákovina.
-        Mám zkušenost, že léčivé procesy lze spustit vědomě.
-      </p>
-      <p>
-        Výsledkem je <strong>klid, osvobození od bolestí a napravení tvaru kloubů</strong>.
-        Žádné léky, žádná operace, žádná dieta. Jen vědomý přístup k vlastnímu tělu.
-      </p>
-      <p>
-        Postup jsem sepsal do e-booku, aby ho mohl použít každý.
-      </p>
+    <div class="flex flex-col sm:flex-row gap-8 items-start">
+      <div class="space-y-4 text-text flex-1">
+        <p>
+          Bylo mi čtyřicet, když mě v noci vzbudila taková bolest kolene, že jsem nevěděl,
+          jestli vůbec ráno vstanu. Lékař mi pak řekl jen tolik: <strong>„Dna. Genetika.
+          Celoživotní dieta a léky, jinak to nepůjde."</strong>
+        </p>
+        <p>
+          Přijal jsem to. Asi půl roku. A pak mi bylo dost – dost toho, že se každé ráno budím
+          s otázkou, co dneska smím sníst. Dost strachu z každého záchvatu. Dost léků, které
+          řeší symptomy, ale ne příčinu.
+        </p>
+        <p>
+          Měl jsem za sebou přes 25 let studia vědomých léčivých procesů. Věděl jsem, že tělo
+          umí víc, než mu lékaři připisují. Tak jsem to prostě zkusil – vědomě, metodicky,
+          každý den.
+        </p>
+        <p>
+          Výsledek? <strong>Žádné záchvaty, žádné léky, žádná dieta.</strong> Klouby se
+          napravily. A já jsem postup sepsal do e-booku, aby ho mohl použít každý – bez ohledu
+          na to, s čím bojuje.
+        </p>
+      </div>
+      <div class="shrink-0 sm:mt-1">
+        <Image
+          src={profilePhoto}
+          alt="Jan Čejka"
+          width={160}
+          height={160}
+          densities={[1, 2, 3]}
+          class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover shadow-md border-2 border-accent"
+        />
+        <p class="text-center text-sm text-muted mt-2 font-medium">Jan Čejka</p>
+      </div>
     </div>
   </section>
 
   <!-- Co je v e-booku -->
   <section class="bg-accent/20 py-16 px-4">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-8">Co e-book obsahuje</h2>
-      <ul class="space-y-4">
-        {[
-          'Přesný postup vědomého uzdravení krok za krokem',
-          'Jak se s tělem domluvit a spustit léčivé procesy',
-          'Meditace a techniky pro každodenní praxi',
-          'Proč vědomé uzdravení funguje i u „nevyléčitelných" nemocí',
-          'Jak udržet výsledky dlouhodobě',
-        ].map((item) => (
-          <li class="flex items-start gap-3">
-            <span class="text-primary font-bold text-lg mt-0.5">✓</span>
-            <span class="text-text">{item}</span>
-          </li>
-        ))}
-      </ul>
+    <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-10">
+      <div class="flex-1">
+        <h2 class="text-2xl font-serif font-bold text-primary-dark mb-8">Co e-book obsahuje</h2>
+        <ul class="space-y-4">
+          {[
+            'Přesný postup, který Jan použil k vyléčení Dny – krok za krokem',
+            'Jak přimět vlastní tělo ke spolupráci a spustit přirozené hojení',
+            'Meditace a techniky, které zvládnete i bez předchozí zkušenosti',
+            'Proč tato metoda funguje i u stavů, které lékaři označují za „nevyléčitelné"',
+            'Jak výsledky udržet a nepotřebovat léky ani dietu dlouhodobě',
+          ].map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="text-primary font-bold text-lg mt-0.5">✓</span>
+              <span class="text-text">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="shrink-0 pointer-events-none" aria-hidden="true">
+        <Image
+          src={logoTransparent}
+          alt=""
+          width={220}
+          height={220}
+          densities={[1, 2, 3]}
+          class="w-44 h-44 sm:w-56 sm:h-56 opacity-40 drop-shadow-md"
+        />
+      </div>
     </div>
   </section>
 
@@ -129,6 +161,22 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
     </section>
   )}
 
+  <!-- Druhá CTA za referencemi -->
+  <section class="bg-primary/5 border-y border-primary/10 py-12 px-4 text-center">
+    <div class="max-w-xl mx-auto">
+      <p class="text-primary-dark font-serif text-xl font-bold mb-2">
+        Přečetli jste příběhy ostatních. Co váš?
+      </p>
+      <p class="text-muted text-sm mb-6">Stačí jeden e-book a můžete začít hned dnes.</p>
+      <a
+        href="#koupit"
+        class="bg-primary text-white font-bold px-10 py-4 rounded-xl hover:bg-primary-light transition-colors text-lg inline-block"
+      >
+        Chci e-book →
+      </a>
+    </div>
+  </section>
+
   <!-- CTA / nákup -->
   <section id="koupit" class="max-w-xl mx-auto px-4 py-16 text-center">
     <div class="bg-white rounded-2xl shadow-lg border border-accent/40 p-10">
@@ -148,6 +196,9 @@ const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
       </button>
       <p id="buy-error" class="text-red-600 text-sm mt-3 hidden"></p>
       <p class="text-xs text-muted mt-4">Bezpečná platba přes Stripe. Faktura přijde e-mailem.</p>
+      <p class="text-xs text-muted mt-3">
+        🛡️ <strong>30denní garance vrácení peněz.</strong> Pokud nebudete spokojeni, vrátíme vám celou částku bez otázek.
+      </p>
     </div>
   </section>
 </BaseLayout>
