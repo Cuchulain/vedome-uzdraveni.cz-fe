@@ -1,124 +1,234 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
+import { Image } from 'astro:assets';
+import logoTransparent from '../assets/logo-transparent.png';
+import profilePhoto from '../assets/profilovka-ctverec.png';
 
-const posts = (await getCollection('blog', ({ data }) => !data.draft))
-  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
-  .slice(0, 3);
+const testimonials = await getCollection('testimonials');
+const testimonialsWithContent = await Promise.all(
+  testimonials
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (t) => ({
+    ...t,
+    rendered: await render(t),
+  }))
+);
 
-const testimonials = (await getCollection('testimonials', ({ data }) => data.featured))
-  .slice(0, 3);
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 ---
 
 <BaseLayout
-  title="Vědomé Uzdravení"
-  description="Jak jsem se vědomě vyléčil z Dny bez léků a bez diety. Ověřený postup, který funguje."
+  title="Magie Vědomého Uzdravení – e-book"
+  description="E-book s ověřeným postupem vědomého uzdravení. Bez léků, bez diety, bez chirurgie. Jan Čejka se takto vyléčil z Dny."
 >
-  <!-- Hero -->
+  <!-- Hero sales section -->
   <section class="bg-gradient-to-b from-primary-dark to-primary text-white py-20 px-4">
     <div class="max-w-3xl mx-auto text-center">
+      <p class="text-accent/80 text-sm uppercase tracking-widest mb-4">E-book</p>
       <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-6 leading-tight">
-        Vědomé uzdravení<br />je možné
+        Magie Vědomého Uzdravení
       </h1>
-      <p class="text-xl text-accent/90 mb-8 max-w-2xl mx-auto">
-        Na internetu jsem se dočetl, že Dna se nedá vyléčit. Nevěřil jsem tomu.
-        Vyléčil jsem se vědomě – bez léků, bez diety, bez chirurgie. A sepsal o tom e-book.
+      <p class="text-xl text-accent/90 mb-8">
+        Ověřený postup, jak si pomoct vědomě – bez léků, bez celoživotní diety, bez chirurgie.
       </p>
-      <div class="flex flex-col sm:flex-row gap-4 justify-center">
-        <a
-          href="/magie-vedomeho-uzdraveni"
-          class="bg-white text-primary-dark font-semibold px-8 py-3 rounded-lg hover:bg-accent transition-colors text-lg"
-        >
-          Přečíst o e-booku
-        </a>
-        <a
-          href="/zpravodaj"
-          class="border border-white/40 text-white font-medium px-8 py-3 rounded-lg hover:bg-white/10 transition-colors text-lg"
-        >
-          Odebírat newsletter
-        </a>
-      </div>
+      <a
+        href="#koupit"
+        class="bg-white text-primary-dark font-bold px-10 py-4 rounded-xl hover:bg-accent transition-colors text-lg inline-block"
+      >
+        Chci e-book →
+      </a>
     </div>
   </section>
 
   <!-- Příběh -->
   <section class="max-w-3xl mx-auto px-4 py-16">
-    <h2 class="text-3xl font-serif font-bold text-primary-dark mb-6">Proč jsem tento postup vytvořil</h2>
-    <div class="prose prose-lg max-w-none text-text space-y-4">
-      <p>
-        Posledních několik let se u mě začaly objevovat omezující problémy s klouby.
-        Záněty začínaly většinou na pravém palci u nohy, občas na levém, někdy se přesunuly
-        na kotník. Bolelo to jako čert a intervaly se zkracovaly.
-        Na internetu jsem pak našel popis příznaků Dny – a bylo mi jasné, že je to i můj případ.
-      </p>
-      <p>
-        Dočetl jsem se, že situaci lze částečně řešit dietou a pohybem – na celý život,
-        protože Dna je podmíněna geneticky a prý ji nelze vyléčit.
-        Takovým ptákovinám já nevěřím.
-        Mám zkušenost, že léčivé procesy lze spustit vědomě. Stačí se s tělem domluvit.
-      </p>
-      <p>
-        Výsledkem je <strong>klid, osvobození od bolestí a napravení tvaru kloubů</strong> –
-        opět je ohýbám tak jako dřív, bez omezení.
-      </p>
+    <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">Můj příběh</h2>
+    <div class="flex flex-col sm:flex-row gap-8 items-start">
+      <div class="space-y-4 text-text flex-1">
+        <p>
+          Bylo mi čtyřicet, když mě v noci vzbudila taková bolest palce u nohy, že jsem nevěděl,
+          jestli vůbec ráno vstanu. Záněty se vracely, intervaly se zkracovaly –
+          jednou palec, jindy kotník. Na internetu jsem pak našel popis příznaků
+          <strong>Dny</strong>. A hned i větu: <em>„genetická porucha, celoživotní dieta, nelze vyléčit."</em>
+        </p>
+        <p>
+          Přijal jsem to. Asi půl roku. A pak mi bylo dost – dost strachu z každého záchvatu,
+          dost omezování a léků, které řeší symptomy, ale ne příčinu.
+          Takovým ptákovinám jsem nikdy nevěřil.
+        </p>
+        <p>
+          Měl jsem za sebou přes 25 let studia vědomých léčivých procesů. Věděl jsem, že tělo
+          umí víc, než mu lékaři připisují. Tak jsem to prostě zkusil – vědomě, metodicky,
+          každý den.
+        </p>
+        <p>
+          Výsledek? <strong>Žádné záchvaty, žádné léky, žádná dieta.</strong> Klouby se
+          napravily. A já jsem postup sepsal do e-booku, aby ho mohl použít každý – bez ohledu
+          na to, s čím bojuje.
+        </p>
+      </div>
+      <div class="shrink-0 sm:mt-1">
+        <Image
+          src={profilePhoto}
+          alt="Jan Čejka"
+          width={160}
+          height={160}
+          densities={[1, 2, 3]}
+          class="w-32 h-32 sm:w-40 sm:h-40 rounded-full object-cover shadow-md border-2 border-accent"
+        />
+        <p class="text-center text-sm text-muted mt-2 font-medium">Jan Čejka</p>
+      </div>
     </div>
-    <a href="/magie-vedomeho-uzdraveni" class="mt-8 inline-block bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-light transition-colors">
-      Číst celý příběh →
-    </a>
+  </section>
+
+  <!-- Co je v e-booku -->
+  <section class="bg-accent/20 py-16 px-4">
+    <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-10">
+      <div class="flex-1">
+        <h2 class="text-2xl font-serif font-bold text-primary-dark mb-8">Co e-book obsahuje</h2>
+        <ul class="space-y-4">
+          {[
+            'Přesný postup, který Jan použil k vyléčení Dny – krok za krokem',
+            'Jak přimět vlastní tělo ke spolupráci a spustit přirozené hojení',
+            'Meditace a techniky, které zvládnete i bez předchozí zkušenosti',
+            'Proč tato metoda funguje i u stavů, které lékaři označují za „nevyléčitelné"',
+            'Jak výsledky udržet a nepotřebovat léky ani dietu dlouhodobě',
+          ].map((item) => (
+            <li class="flex items-start gap-3">
+              <span class="text-primary font-bold text-lg mt-0.5">✓</span>
+              <span class="text-text">{item}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div class="shrink-0 pointer-events-none" aria-hidden="true">
+        <Image
+          src={logoTransparent}
+          alt=""
+          width={220}
+          height={220}
+          densities={[1, 2, 3]}
+          class="w-44 h-44 sm:w-56 sm:h-56 opacity-40 drop-shadow-md"
+        />
+      </div>
+    </div>
   </section>
 
   <!-- Reference -->
-  {testimonials.length > 0 && (
-    <section class="bg-accent/30 py-16 px-4">
-      <div class="max-w-4xl mx-auto">
-        <h2 class="text-2xl font-serif font-bold text-primary-dark mb-10 text-center">Co říkají čtenáři</h2>
-        <div class="grid sm:grid-cols-3 gap-6">
-          {testimonials.map((t) => (
-            <div class="bg-white rounded-xl p-6 shadow-sm">
-              <p class="text-text italic mb-4">„<slot set:html={t.body} />"</p>
-              <p class="text-sm font-semibold text-primary-dark">{t.data.author}</p>
-              {t.data.location && <p class="text-xs text-muted">{t.data.location}</p>}
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  )}
-
-  <!-- Blog preview -->
-  {posts.length > 0 && (
+  {testimonialsWithContent.length > 0 && (
     <section class="max-w-4xl mx-auto px-4 py-16">
-      <div class="flex items-center justify-between mb-8">
-        <h2 class="text-2xl font-serif font-bold text-primary-dark">Poslední články</h2>
-        <a href="/novinky" class="text-primary font-medium hover:underline text-sm">Všechny články →</a>
-      </div>
+      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-10 text-center">Co říkají čtenáři</h2>
       <div class="grid sm:grid-cols-3 gap-6">
-        {posts.map((post) => (
-          <a href={`/novinky/${post.id}`} class="group block bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
-            <p class="text-xs text-muted mb-2">
-              {post.data.pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
-            </p>
-            <h3 class="font-serif font-bold text-primary-dark group-hover:text-primary transition-colors mb-2">
-              {post.data.title}
-            </h3>
-            <p class="text-sm text-muted line-clamp-3">{post.data.description}</p>
-          </a>
-        ))}
+        {testimonialsWithContent.map(({ data, rendered, body }) => {
+          const hasExcerpt = Boolean(data.excerpt);
+          const { Content } = rendered;
+          return (
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-accent/40 flex flex-col">
+              {hasExcerpt ? (
+                <details class="group flex-1">
+                  <summary class="list-none cursor-pointer">
+                    <p class="text-text italic text-sm leading-relaxed mb-3">{data.excerpt}</p>
+                    <span class="inline-flex items-center gap-1 text-primary text-xs font-medium group-open:hidden">
+                      Celé hodnocení
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
+                        <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                    <span class="hidden group-open:inline-flex items-center gap-1 text-muted text-xs font-medium">
+                      Skrýt
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
+                        <path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="mt-3 pt-3 border-t border-accent/30 text-text italic text-sm leading-relaxed prose prose-sm max-w-none">
+                    <Content />
+                  </div>
+                </details>
+              ) : (
+                <div class="text-text italic text-sm leading-relaxed prose prose-sm max-w-none flex-1">
+                  <Content />
+                </div>
+              )}
+              <div class="mt-4 pt-3 border-t border-accent/20">
+                <p class="text-sm font-semibold text-primary-dark">{data.author}</p>
+                {data.location && <p class="text-xs text-muted">{data.location}</p>}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   )}
 
-  <!-- CTA newsletter -->
-  <section class="bg-primary text-white py-16 px-4">
-    <div class="max-w-xl mx-auto text-center">
-      <h2 class="text-2xl font-serif font-bold mb-4">Tipy a novinky zdarma</h2>
-      <p class="text-accent/90 mb-6">Přihlaste se k newsletteru a získejte sérii e-mailů o vědomém uzdravení.</p>
+  <!-- Druhá CTA za referencemi -->
+  <section class="bg-primary/5 border-y border-primary/10 py-12 px-4 text-center">
+    <div class="max-w-xl mx-auto">
+      <p class="text-primary-dark font-serif text-xl font-bold mb-2">
+        Přečetli jste příběhy ostatních. Co váš?
+      </p>
+      <p class="text-muted text-sm mb-6">Stačí jeden e-book a můžete začít ještě dnes.</p>
       <a
-        href="/zpravodaj"
-        class="bg-white text-primary-dark font-semibold px-8 py-3 rounded-lg hover:bg-accent transition-colors inline-block"
+        href="#koupit"
+        class="bg-primary text-white font-bold px-10 py-4 rounded-xl hover:bg-primary-light transition-colors text-lg inline-block"
       >
-        Přihlásit se k newsletteru
+        Chci e-book →
       </a>
     </div>
   </section>
+
+  <!-- CTA / nákup -->
+  <section id="koupit" class="max-w-xl mx-auto px-4 py-16 text-center">
+    <div class="bg-white rounded-2xl shadow-lg border border-accent/40 p-10">
+      <p class="text-sm text-muted uppercase tracking-widest mb-2">E-book ke stažení</p>
+      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-2">Magie Vědomého Uzdravení</h2>
+      <p class="text-4xl font-bold text-primary my-6">497 Kč</p>
+      <ul class="text-sm text-muted space-y-1 mb-8">
+        <li>✓ Okamžité stažení ve formátu PDF</li>
+        <li>✓ Přístup do členské sekce s bonusy</li>
+        <li>✓ Platba kartou, Apple Pay nebo Google Pay</li>
+      </ul>
+      <button
+        id="buy-btn"
+        class="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-primary-light transition-colors text-lg"
+      >
+        Koupit e-book
+      </button>
+      <p id="buy-error" class="text-red-600 text-sm mt-3 hidden"></p>
+      <p class="text-xs text-muted mt-4">Bezpečná platba přes Stripe. Faktura přijde e-mailem.</p>
+      <p class="text-xs text-muted mt-3">
+        🛡️ <strong>30denní garance vrácení peněz.</strong> Pokud nebudete spokojeni, vrátíme vám celou částku bez otázek.
+      </p>
+    </div>
+  </section>
 </BaseLayout>
+
+<script define:vars={{ apiUrl, apiKey }}>
+  document.getElementById('buy-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('buy-btn');
+    const err = document.getElementById('buy-error');
+    btn.disabled = true;
+    btn.textContent = 'Přesměrovávám na platbu…';
+
+    try {
+      const res = await fetch(`${apiUrl}/api/stripe/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
+        body: JSON.stringify({}),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('Chybí URL');
+      }
+    } catch {
+      err.textContent = 'Nepodařilo se zahájit platbu. Zkuste to prosím znovu.';
+      err.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Koupit e-book';
+    }
+  });
+</script>

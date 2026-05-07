@@ -15,7 +15,15 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
   </div>
 
   <div id="content" class="hidden max-w-3xl mx-auto px-4 py-16">
-    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-2">Členská sekce</h1>
+    <div class="flex items-center justify-between mb-8">
+      <h1 class="text-3xl font-serif font-bold text-primary-dark">Členská sekce</h1>
+      <button
+        id="logout-btn"
+        class="text-sm text-muted hover:text-primary transition-colors underline"
+      >
+        Odhlásit se
+      </button>
+    </div>
     <p class="text-muted mb-10">Vítejte! Níže najdete svůj e-book a bonusové materiály.</p>
 
     <div class="grid sm:grid-cols-2 gap-6">
@@ -63,12 +71,20 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
       Tato sekce je dostupná pouze pro zákazníky, kteří zakoupili e-book.
       Přístupový odkaz vám byl odeslán e-mailem po nákupu.
     </p>
-    <a
-      href="/magie-vedomeho-uzdraveni"
-      class="bg-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-primary-light transition-colors inline-block"
-    >
-      Koupit e-book
-    </a>
+    <div class="flex flex-col sm:flex-row gap-3 justify-center">
+      <a
+        href="/prihlaseni"
+        class="bg-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-primary-light transition-colors inline-block"
+      >
+        Zaslat přihlašovací odkaz
+      </a>
+      <a
+        href="/"
+        class="border border-primary text-primary font-semibold px-8 py-3 rounded-lg hover:bg-accent/40 transition-colors inline-block"
+      >
+        Koupit e-book
+      </a>
+    </div>
   </div>
 </BaseLayout>
 
@@ -88,4 +104,16 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
       document.getElementById('no-access').classList.remove('hidden');
     }
   })();
+
+  document.getElementById('logout-btn')?.addEventListener('click', async () => {
+    try {
+      await fetch(`${apiUrl}/api/auth/logout`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'X-API-Key': apiKey },
+      });
+    } finally {
+      window.location.href = '/';
+    }
+  });
 </script>

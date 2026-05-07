@@ -11,6 +11,6 @@ Co si o tom myslím? Alternativní medicína samozřejmě v ČR pojede dál. Ste
 
 Pro jakékoli totalitní vládnoucí režimy je výhodnější, když jsou lidé vystresovaní a ovladatelní. A ovladatelní lidé jsou, pokud jsou nemocní a rozhodnutí o tom, jestli se vyléčí, závisí na úřadech.
 
-Do kategorie alternativní medicíny se dají zařadit i tyto stránky a [má kniha](/magie-vedomeho-uzdraveni). Stránky pojedou dál.
+Do kategorie alternativní medicíny se dají zařadit i tyto stránky a [má kniha](/). Stránky pojedou dál.
 
 *Jan Čejka*

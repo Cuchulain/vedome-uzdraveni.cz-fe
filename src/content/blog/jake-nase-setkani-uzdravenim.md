@@ -15,7 +15,7 @@ Druhý kurz proběhl v sobotu 23. 8. 2014 v Nesměřicích u Zruče nad Sázavou
 
 Další osobní kurzy prozatím neplánuju. Pokud máte zájem, ozvěte se mi a můžeme ho operativně domluvit.
 
-Veškeré techniky, které jsme na jednodenních kurzech probírali, jsem přesně popsal v knize [**Magie Vědomého Uzdravení**](/magie-vedomeho-uzdraveni).
+Veškeré techniky, které jsme na jednodenních kurzech probírali, jsem přesně popsal v knize [**Magie Vědomého Uzdravení**](/).
 
 Přeji Vám příjemné uzdravení
 
