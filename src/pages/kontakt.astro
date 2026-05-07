@@ -1,24 +1,107 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
 ---
 
 <BaseLayout title="Kontakt" description="Kontaktní informace – Vědomé Uzdravení, Jan Čejka.">
   <div class="max-w-xl mx-auto px-4 py-16">
-    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-6">Kontakt</h1>
-    <p class="text-muted mb-8">
+    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-4">Kontakt</h1>
+    <p class="text-muted mb-10">
       Máte otázku k e-booku nebo postupu vědomého uzdravení? Napište mi.
     </p>
-    <div class="bg-white rounded-xl p-8 shadow-sm border border-accent/40 space-y-4">
+
+    <!-- Kontaktní formulář -->
+    <form id="contact-form" class="space-y-5">
       <div>
-        <p class="text-sm font-medium text-muted">Jméno</p>
-        <p class="text-text font-semibold">Jan Čejka</p>
+        <label for="name" class="block text-sm font-medium text-text mb-1">Jméno</label>
+        <input
+          id="name" name="name" type="text" required
+          placeholder="Vaše jméno"
+          class="w-full rounded-lg border border-accent/60 px-4 py-2.5 text-text focus:outline-none focus:ring-2 focus:ring-primary/50"
+        />
       </div>
       <div>
-        <p class="text-sm font-medium text-muted">E-mail</p>
-        <a href="mailto:info@vedome-uzdraveni.cz" class="text-primary hover:underline">
-          info@vedome-uzdraveni.cz
-        </a>
+        <label for="email" class="block text-sm font-medium text-text mb-1">E-mail</label>
+        <input
+          id="email" name="email" type="email" required
+          placeholder="vas@email.cz"
+          class="w-full rounded-lg border border-accent/60 px-4 py-2.5 text-text focus:outline-none focus:ring-2 focus:ring-primary/50"
+        />
       </div>
+      <div>
+        <label for="message" class="block text-sm font-medium text-text mb-1">Zpráva</label>
+        <textarea
+          id="message" name="message" required rows="6"
+          placeholder="Váš dotaz nebo zpráva…"
+          class="w-full rounded-lg border border-accent/60 px-4 py-2.5 text-text focus:outline-none focus:ring-2 focus:ring-primary/50 resize-y"
+        ></textarea>
+      </div>
+
+      <div id="form-error" class="hidden rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700"></div>
+      <div id="form-success" class="hidden rounded-lg bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-800">
+        ✓ Zpráva odeslána. Ozvím se co nejdříve.
+      </div>
+
+      <button
+        type="submit"
+        id="submit-btn"
+        class="w-full rounded-full bg-primary text-white font-semibold py-3 px-8 hover:bg-primary-dark transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+      >
+        Odeslat zprávu
+      </button>
+    </form>
+
+    <!-- Přímý kontakt -->
+    <div class="mt-12 pt-8 border-t border-accent/30 text-sm text-muted">
+      Nebo mi napište přímo na
+      <a href="mailto:info@vedome-uzdraveni.cz" class="text-primary hover:underline">
+        info@vedome-uzdraveni.cz
+      </a>
     </div>
   </div>
 </BaseLayout>
+
+<script define:vars={{ apiUrl }}>
+  const form = document.getElementById('contact-form');
+  const btn = document.getElementById('submit-btn');
+  const errorBox = document.getElementById('form-error');
+  const successBox = document.getElementById('form-success');
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    errorBox.classList.add('hidden');
+    successBox.classList.add('hidden');
+    btn.disabled = true;
+    btn.textContent = 'Odesílám…';
+
+    const data = {
+      name: form.name.value.trim(),
+      email: form.email.value.trim(),
+      message: form.message.value.trim(),
+    };
+
+    try {
+      const res = await fetch(`${apiUrl}/api/contact`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+      });
+
+      if (res.ok) {
+        form.reset();
+        successBox.classList.remove('hidden');
+      } else {
+        const text = await res.text();
+        errorBox.textContent = text || 'Nepodařilo se odeslat zprávu. Zkuste to prosím znovu.';
+        errorBox.classList.remove('hidden');
+      }
+    } catch {
+      errorBox.textContent = 'Chyba připojení. Zkuste to prosím znovu.';
+      errorBox.classList.remove('hidden');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Odeslat zprávu';
+    }
+  });
+</script>
