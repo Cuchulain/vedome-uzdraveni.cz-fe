@@ -1,0 +1,19 @@
+diff --git a/dist/vite-plugin-pages/page.js b/dist/vite-plugin-pages/page.js
+index fdeba664f7cf3a488216a2ffe3873446f767a38a..7144ca54c2aedba5aea319fb6dd05eaf145b0d17 100644
+--- a/dist/vite-plugin-pages/page.js
++++ b/dist/vite-plugin-pages/page.js
+@@ -29,7 +29,13 @@ function pluginPage({ routesList }) {
+         if (DEFAULT_COMPONENTS.some((component) => componentPath === component)) {
+           return { code: "" };
+         }
+-        const routes = routesList.routes.filter((route) => route.component === componentPath);
++        // Search both top-level routes and nested redirectRoute targets
++        const allRoutes = [];
++        for (const route of routesList.routes) {
++          allRoutes.push(route);
++          if (route.redirectRoute) allRoutes.push(route.redirectRoute);
++        }
++        const routes = allRoutes.filter((route) => route.component === componentPath);
+         for (const route of routes) {
+           if (routeIsRedirect(route)) {
+             continue;

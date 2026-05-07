@@ -1,0 +1,181 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+
+const testimonials = await getCollection('testimonials');
+const testimonialsWithContent = await Promise.all(
+  testimonials
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (t) => ({
+    ...t,
+    rendered: await render(t),
+  }))
+);
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+---
+
+<BaseLayout
+  title="Magie Vědomého Uzdravení – e-book"
+  description="E-book s ověřeným postupem vědomého uzdravení. Bez léků, bez diety, bez chirurgie. Jan Čejka se takto vyléčil z Dny."
+>
+  <!-- Hero sales section -->
+  <section class="bg-gradient-to-b from-primary-dark to-primary text-white py-20 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-accent/80 text-sm uppercase tracking-widest mb-4">E-book</p>
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-6 leading-tight">
+        Magie Vědomého Uzdravení
+      </h1>
+      <p class="text-xl text-accent/90 mb-8">
+        Ověřený postup, jak si pomoct vědomě – bez léků, bez celoživotní diety, bez chirurgie.
+      </p>
+      <a
+        href="#koupit"
+        class="bg-white text-primary-dark font-bold px-10 py-4 rounded-xl hover:bg-accent transition-colors text-lg inline-block"
+      >
+        Chci e-book →
+      </a>
+    </div>
+  </section>
+
+  <!-- Příběh -->
+  <section class="max-w-3xl mx-auto px-4 py-16">
+    <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">Můj příběh</h2>
+    <div class="space-y-4 text-text">
+      <p>
+        Zjistil jsem, že mám <strong>Dnu</strong> – geneticky podmíněnou poruchu metabolismu purinů.
+        Kyselina močová se mi usazovala v kloubech v podobě ostrých jehliček. Bolelo to jako čert
+        a záchvaty se zkracovaly.
+      </p>
+      <p>
+        Lékaři říkali: celoživotní dieta, léky, nevyléčitelné. Já jsem si řekl – to je ptákovina.
+        Mám zkušenost, že léčivé procesy lze spustit vědomě.
+      </p>
+      <p>
+        Výsledkem je <strong>klid, osvobození od bolestí a napravení tvaru kloubů</strong>.
+        Žádné léky, žádná operace, žádná dieta. Jen vědomý přístup k vlastnímu tělu.
+      </p>
+      <p>
+        Postup jsem sepsal do e-booku, aby ho mohl použít každý.
+      </p>
+    </div>
+  </section>
+
+  <!-- Co je v e-booku -->
+  <section class="bg-accent/20 py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-8">Co e-book obsahuje</h2>
+      <ul class="space-y-4">
+        {[
+          'Přesný postup vědomého uzdravení krok za krokem',
+          'Jak se s tělem domluvit a spustit léčivé procesy',
+          'Meditace a techniky pro každodenní praxi',
+          'Proč vědomé uzdravení funguje i u „nevyléčitelných" nemocí',
+          'Jak udržet výsledky dlouhodobě',
+        ].map((item) => (
+          <li class="flex items-start gap-3">
+            <span class="text-primary font-bold text-lg mt-0.5">✓</span>
+            <span class="text-text">{item}</span>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Reference -->
+  {testimonialsWithContent.length > 0 && (
+    <section class="max-w-4xl mx-auto px-4 py-16">
+      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-10 text-center">Co říkají čtenáři</h2>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {testimonialsWithContent.map(({ data, rendered, body }) => {
+          const hasExcerpt = Boolean(data.excerpt);
+          const { Content } = rendered;
+          return (
+            <div class="bg-white rounded-xl p-6 shadow-sm border border-accent/40 flex flex-col">
+              {hasExcerpt ? (
+                <details class="group flex-1">
+                  <summary class="list-none cursor-pointer">
+                    <p class="text-text italic text-sm leading-relaxed mb-3">{data.excerpt}</p>
+                    <span class="inline-flex items-center gap-1 text-primary text-xs font-medium group-open:hidden">
+                      Celé hodnocení
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
+                        <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                    <span class="hidden group-open:inline-flex items-center gap-1 text-muted text-xs font-medium">
+                      Skrýt
+                      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-3 h-3">
+                        <path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd" />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div class="mt-3 pt-3 border-t border-accent/30 text-text italic text-sm leading-relaxed prose prose-sm max-w-none">
+                    <Content />
+                  </div>
+                </details>
+              ) : (
+                <div class="text-text italic text-sm leading-relaxed prose prose-sm max-w-none flex-1">
+                  <Content />
+                </div>
+              )}
+              <div class="mt-4 pt-3 border-t border-accent/20">
+                <p class="text-sm font-semibold text-primary-dark">{data.author}</p>
+                {data.location && <p class="text-xs text-muted">{data.location}</p>}
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  )}
+
+  <!-- CTA / nákup -->
+  <section id="koupit" class="max-w-xl mx-auto px-4 py-16 text-center">
+    <div class="bg-white rounded-2xl shadow-lg border border-accent/40 p-10">
+      <p class="text-sm text-muted uppercase tracking-widest mb-2">E-book ke stažení</p>
+      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-2">Magie Vědomého Uzdravení</h2>
+      <p class="text-4xl font-bold text-primary my-6">497 Kč</p>
+      <ul class="text-sm text-muted space-y-1 mb-8">
+        <li>✓ Okamžité stažení ve formátu PDF</li>
+        <li>✓ Přístup do členské sekce s bonusy</li>
+        <li>✓ Platba kartou, Apple Pay nebo Google Pay</li>
+      </ul>
+      <button
+        id="buy-btn"
+        class="w-full bg-primary text-white font-bold py-4 rounded-xl hover:bg-primary-light transition-colors text-lg"
+      >
+        Koupit e-book
+      </button>
+      <p id="buy-error" class="text-red-600 text-sm mt-3 hidden"></p>
+      <p class="text-xs text-muted mt-4">Bezpečná platba přes Stripe. Faktura přijde e-mailem.</p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script define:vars={{ apiUrl }}>
+  document.getElementById('buy-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('buy-btn');
+    const err = document.getElementById('buy-error');
+    btn.disabled = true;
+    btn.textContent = 'Přesměrovávám na platbu…';
+
+    try {
+      const res = await fetch(`${apiUrl}/api/stripe/checkout`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({}),
+      });
+      const data = await res.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        throw new Error('Chybí URL');
+      }
+    } catch {
+      err.textContent = 'Nepodařilo se zahájit platbu. Zkuste to prosím znovu.';
+      err.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Koupit e-book';
+    }
+  });
+</script>

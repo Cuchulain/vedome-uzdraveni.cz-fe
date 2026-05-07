@@ -1,0 +1,30 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Děkujeme za nákup!"
+  description="Vaše platba byla přijata. Přístup do členské sekce vám byl odeslán e-mailem."
+  noIndex={true}
+>
+  <div class="max-w-xl mx-auto px-4 py-24 text-center">
+    <div class="text-6xl mb-6">🎉</div>
+    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-4">
+      Děkujeme za nákup!
+    </h1>
+    <p class="text-muted text-lg mb-6">
+      Vaše platba byla úspěšně přijata. Za chvíli obdržíte e-mail s odkazem pro přístup
+      do členské sekce, kde si e-book stáhnete.
+    </p>
+    <p class="text-sm text-muted mb-10">
+      E-mail nedorazil? Zkontrolujte složku Spam nebo
+      <a href="/kontakt" class="text-primary underline">kontaktujte nás</a>.
+    </p>
+    <a
+      href="/"
+      class="bg-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-primary-light transition-colors inline-block"
+    >
+      Zpět na úvod
+    </a>
+  </div>
+</BaseLayout>

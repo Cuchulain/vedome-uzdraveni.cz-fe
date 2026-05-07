@@ -1,0 +1,97 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+---
+
+<BaseLayout
+  title="Newsletter – Tipy o vědomém uzdravení"
+  description="Přihlaste se k newsletteru a získejte sérii e-mailů plnou praktických tipů o vědomém uzdravení."
+>
+  <div class="max-w-xl mx-auto px-4 py-20">
+    <div class="text-center mb-10">
+      <h1 class="text-3xl font-serif font-bold text-primary-dark mb-4">
+        Tipy o vědomém uzdravení zdarma
+      </h1>
+      <p class="text-muted">
+        Přihlaste se a dostanete sérii e-mailů s praktickými kroky, jak nastartovat vědomé léčivé procesy.
+        Bez spamu, odhlásit se lze kdykoli.
+      </p>
+    </div>
+
+    <form id="newsletter-form" class="bg-white rounded-2xl shadow-sm p-8 space-y-4">
+      <div>
+        <label for="name" class="block text-sm font-medium text-text mb-1">Jméno</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          placeholder="Vaše jméno"
+          class="w-full border border-accent rounded-lg px-4 py-2.5 text-text focus:outline-none focus:ring-2 focus:ring-primary/40"
+        />
+      </div>
+      <div>
+        <label for="email" class="block text-sm font-medium text-text mb-1">E-mail <span class="text-red-500">*</span></label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="vas@email.cz"
+          class="w-full border border-accent rounded-lg px-4 py-2.5 text-text focus:outline-none focus:ring-2 focus:ring-primary/40"
+        />
+      </div>
+      <button
+        type="submit"
+        class="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-primary-light transition-colors"
+      >
+        Přihlásit se k newsletteru
+      </button>
+      <p id="form-message" class="text-sm text-center hidden"></p>
+      <p class="text-xs text-muted text-center">
+        Odesláním souhlasíte se
+        <a href="/zasady-ochrany-osobnich-udaju" class="underline">zpracováním osobních údajů</a>.
+      </p>
+    </form>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ apiUrl }}>
+  document.getElementById('newsletter-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const msg = document.getElementById('form-message');
+    const btn = form.querySelector('button[type=submit]');
+
+    btn.disabled = true;
+    btn.textContent = 'Odesílám…';
+
+    try {
+      const res = await fetch(`${apiUrl}/api/ecomail/subscribe`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email: form.email.value,
+          name: form.name.value,
+        }),
+        credentials: 'include',
+      });
+
+      if (res.ok) {
+        form.innerHTML = '<p class="text-center text-primary font-semibold text-lg py-8">✓ Přihlášení proběhlo úspěšně!<br><span class="text-muted text-base font-normal">Zkontrolujte svůj e-mail a potvrďte přihlášení.</span></p>';
+      } else {
+        msg.textContent = 'Přihlášení se nepodařilo. Zkuste to prosím znovu.';
+        msg.className = 'text-sm text-center text-red-600';
+        msg.classList.remove('hidden');
+        btn.disabled = false;
+        btn.textContent = 'Přihlásit se k newsletteru';
+      }
+    } catch {
+      msg.textContent = 'Chyba připojení. Zkuste to prosím znovu.';
+      msg.className = 'text-sm text-center text-red-600';
+      msg.classList.remove('hidden');
+      btn.disabled = false;
+      btn.textContent = 'Přihlásit se k newsletteru';
+    }
+  });
+</script>

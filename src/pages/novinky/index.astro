@@ -1,0 +1,36 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog" description="Články o vědomém uzdravení od Jana Čejky.">
+  <div class="max-w-3xl mx-auto px-4 py-16">
+    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-10">Články</h1>
+
+    {posts.length === 0 && (
+      <p class="text-muted">Zatím žádné články.</p>
+    )}
+
+    <div class="space-y-8">
+      {posts.map((post) => (
+        <article class="border-b border-accent pb-8">
+          <time class="text-xs text-muted">
+            {post.data.pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
+          </time>
+          <h2 class="text-xl font-serif font-bold text-primary-dark mt-1 mb-2">
+            <a href={`/novinky/${post.id}`} class="hover:text-primary transition-colors">
+              {post.data.title}
+            </a>
+          </h2>
+          <p class="text-muted text-sm mb-3">{post.data.description}</p>
+          <a href={`/novinky/${post.id}`} class="text-primary text-sm font-medium hover:underline">
+            Číst dál →
+          </a>
+        </article>
+      ))}
+    </div>
+  </div>
+</BaseLayout>

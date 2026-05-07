@@ -1,0 +1,24 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout title="Kontakt" description="Kontaktní informace – Vědomé Uzdravení, Jan Čejka.">
+  <div class="max-w-xl mx-auto px-4 py-16">
+    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-6">Kontakt</h1>
+    <p class="text-muted mb-8">
+      Máte otázku k e-booku nebo postupu vědomého uzdravení? Napište mi.
+    </p>
+    <div class="bg-white rounded-xl p-8 shadow-sm border border-accent/40 space-y-4">
+      <div>
+        <p class="text-sm font-medium text-muted">Jméno</p>
+        <p class="text-text font-semibold">Jan Čejka</p>
+      </div>
+      <div>
+        <p class="text-sm font-medium text-muted">E-mail</p>
+        <a href="mailto:info@vedome-uzdraveni.cz" class="text-primary hover:underline">
+          info@vedome-uzdraveni.cz
+        </a>
+      </div>
+    </div>
+  </div>
+</BaseLayout>

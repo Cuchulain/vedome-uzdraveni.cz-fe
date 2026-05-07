@@ -1,0 +1,27 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+---
+
+<BaseLayout
+  title="Přihlášení potvrzeno"
+  description="Vaše přihlášení k newsletteru bylo potvrzeno."
+  noIndex={true}
+>
+  <div class="max-w-xl mx-auto px-4 py-24 text-center">
+    <div class="text-6xl mb-6">✅</div>
+    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-4">
+      Přihlášení potvrzeno!
+    </h1>
+    <p class="text-muted text-lg mb-8">
+      Vítejte v komunitě Vědomého Uzdravení. První e-mail z naší série vám přijde brzy.
+    </p>
+    <a
+      href="/magie-vedomeho-uzdraveni"
+      class="bg-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-primary-light transition-colors inline-block"
+    >
+      Prohlédnout e-book
+    </a>
+  </div>
+</BaseLayout>

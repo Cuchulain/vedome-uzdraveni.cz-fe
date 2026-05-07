@@ -1,0 +1,112 @@
+---
+import '../styles/global.css';
+import { Image } from 'astro:assets';
+import logo from '../assets/logo.png';
+
+interface Props {
+  title: string;
+  description?: string;
+  ogImage?: string;
+  noIndex?: boolean;
+}
+
+const {
+  title,
+  description = 'Vědomé uzdravení bez léků – ověřený postup, jak si pomoct sám.',
+  ogImage = '/og-default.jpg',
+  noIndex = false,
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="cs">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title} | Vědomé Uzdravení</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalURL} />
+    {noIndex && <meta name="robots" content="noindex,nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={`${title} | Vědomé Uzdravení`} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(ogImage, Astro.site)} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="cs_CZ" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="min-h-screen flex flex-col">
+    <header class="bg-white border-b border-accent sticky top-0 z-50">
+      <nav class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+        <a href="/" class="flex items-center gap-2">
+          <Image src={logo} alt="Vědomé Uzdravení" width={44} height={44} densities={[1, 2, 3]} class="w-11 h-11" />
+          <span class="text-primary-dark font-serif font-bold text-xl leading-tight hidden sm:block">
+            Vědomé<br />Uzdravení
+          </span>
+        </a>
+        <ul class="hidden sm:flex items-center gap-6 text-sm font-medium">
+          <li><a href="/magie-vedomeho-uzdraveni" class="text-text hover:text-primary transition-colors">E-book</a></li>
+          <li><a href="/novinky" class="text-text hover:text-primary transition-colors">Blog</a></li>
+          <li><a href="/zpravodaj" class="text-text hover:text-primary transition-colors">Newsletter</a></li>
+          <li><a href="/kontakt" class="text-text hover:text-primary transition-colors">Kontakt</a></li>
+        </ul>
+        <a
+          href="/magie-vedomeho-uzdraveni"
+          class="bg-primary text-white text-sm font-medium px-4 py-2 rounded-lg hover:bg-primary-light transition-colors"
+        >
+          Zjistit více
+        </a>
+      </nav>
+    </header>
+
+    <main class="flex-1">
+      <slot />
+    </main>
+
+    <footer class="bg-primary-dark text-white mt-16">
+      <div class="max-w-4xl mx-auto px-4 py-10 grid sm:grid-cols-3 gap-8 text-sm">
+        <div class="flex items-center gap-3">
+          <Image src={logo} alt="Vědomé Uzdravení" width={40} height={40} densities={[1, 2, 3]} class="w-10 h-10 opacity-90" />
+          <div>
+            <p class="font-serif font-bold text-lg">Vědomé Uzdravení</p>
+            <p class="text-accent/80 text-sm">Vědomé léčivé procesy, které fungují.</p>
+          </div>
+        </div>
+        <div>
+          <p class="font-semibold mb-3">Stránky</p>
+          <ul class="space-y-2 text-accent/80">
+            <li><a href="/" class="hover:text-white transition-colors">Úvod</a></li>
+            <li><a href="/magie-vedomeho-uzdraveni" class="hover:text-white transition-colors">E-book</a></li>
+            <li><a href="/novinky" class="hover:text-white transition-colors">Blog</a></li>
+            <li><a href="/zpravodaj" class="hover:text-white transition-colors">Newsletter</a></li>
+          </ul>
+        </div>
+        <div>
+          <p class="font-semibold mb-3">Právní</p>
+          <ul class="space-y-2 text-accent/80">
+            <li><a href="/obchodni-podminky" class="hover:text-white transition-colors">Obchodní podmínky</a></li>
+            <li><a href="/zasady-ochrany-osobnich-udaju" class="hover:text-white transition-colors">Ochrana osobních údajů</a></li>
+            <li><a href="/kontakt" class="hover:text-white transition-colors">Kontakt</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="border-t border-white/10 text-center py-4 text-accent/60 text-xs">
+        © {new Date().getFullYear()} Vědomé Uzdravení. Všechna práva vyhrazena.
+      </div>
+    </footer>
+  </body>
+</html>

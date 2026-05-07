@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf())
+  .slice(0, 3);
+
+const testimonials = (await getCollection('testimonials', ({ data }) => data.featured))
+  .slice(0, 3);
+---
+
+<BaseLayout
+  title="Vědomé Uzdravení"
+  description="Jak jsem se vědomě vyléčil z Dny bez léků a bez diety. Ověřený postup, který funguje."
+>
+  <!-- Hero -->
+  <section class="bg-gradient-to-b from-primary-dark to-primary text-white py-20 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-6 leading-tight">
+        Vědomé uzdravení<br />je možné
+      </h1>
+      <p class="text-xl text-accent/90 mb-8 max-w-2xl mx-auto">
+        Lékaři mi řekli, že Dna se nedá vyléčit. Mýlili se. Vyléčil jsem se vědomě –
+        bez léků, bez diety, bez chirurgie. A napsal o tom knihu.
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/magie-vedomeho-uzdraveni"
+          class="bg-white text-primary-dark font-semibold px-8 py-3 rounded-lg hover:bg-accent transition-colors text-lg"
+        >
+          Přečíst o e-booku
+        </a>
+        <a
+          href="/zpravodaj"
+          class="border border-white/40 text-white font-medium px-8 py-3 rounded-lg hover:bg-white/10 transition-colors text-lg"
+        >
+          Odebírat newsletter
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Příběh -->
+  <section class="max-w-3xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-serif font-bold text-primary-dark mb-6">Proč jsem tento postup vytvořil</h2>
+    <div class="prose prose-lg max-w-none text-text space-y-4">
+      <p>
+        Posledních několik let se u mě začaly objevovat velmi omezující problémy s klouby.
+        Záněty na palci, kotníku – bolelo to jako čert a intervaly se zkracovaly.
+        Zjistil jsem, že mám <strong>Dnu</strong> – geneticky podmíněnou poruchu metabolismu.
+      </p>
+      <p>
+        Lékaři říkali: celoživotní dieta, léky, žádné vyléčení. Já si říkal – to je ptákovina.
+        Mám zkušenost, že léčivé procesy lze spustit vědomě. Stačí se s tělem domluvit.
+      </p>
+      <p>
+        Výsledkem je <strong>klid, osvobození od bolestí a napravení tvaru kloubů</strong> –
+        opět je ohýbám tak jako dřív, bez omezení.
+      </p>
+    </div>
+    <a href="/magie-vedomeho-uzdraveni" class="mt-8 inline-block bg-primary text-white font-semibold px-6 py-3 rounded-lg hover:bg-primary-light transition-colors">
+      Číst celý příběh →
+    </a>
+  </section>
+
+  <!-- Reference -->
+  {testimonials.length > 0 && (
+    <section class="bg-accent/30 py-16 px-4">
+      <div class="max-w-4xl mx-auto">
+        <h2 class="text-2xl font-serif font-bold text-primary-dark mb-10 text-center">Co říkají čtenáři</h2>
+        <div class="grid sm:grid-cols-3 gap-6">
+          {testimonials.map((t) => (
+            <div class="bg-white rounded-xl p-6 shadow-sm">
+              <p class="text-text italic mb-4">„<slot set:html={t.body} />"</p>
+              <p class="text-sm font-semibold text-primary-dark">{t.data.author}</p>
+              {t.data.location && <p class="text-xs text-muted">{t.data.location}</p>}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Blog preview -->
+  {posts.length > 0 && (
+    <section class="max-w-4xl mx-auto px-4 py-16">
+      <div class="flex items-center justify-between mb-8">
+        <h2 class="text-2xl font-serif font-bold text-primary-dark">Poslední články</h2>
+        <a href="/novinky" class="text-primary font-medium hover:underline text-sm">Všechny články →</a>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-6">
+        {posts.map((post) => (
+          <a href={`/novinky/${post.id}`} class="group block bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow">
+            <p class="text-xs text-muted mb-2">
+              {post.data.pubDate.toLocaleDateString('cs-CZ', { year: 'numeric', month: 'long', day: 'numeric' })}
+            </p>
+            <h3 class="font-serif font-bold text-primary-dark group-hover:text-primary transition-colors mb-2">
+              {post.data.title}
+            </h3>
+            <p class="text-sm text-muted line-clamp-3">{post.data.description}</p>
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- CTA newsletter -->
+  <section class="bg-primary text-white py-16 px-4">
+    <div class="max-w-xl mx-auto text-center">
+      <h2 class="text-2xl font-serif font-bold mb-4">Tipy a novinky zdarma</h2>
+      <p class="text-accent/90 mb-6">Přihlaste se k newsletteru a získejte sérii e-mailů o vědomém uzdravení.</p>
+      <a
+        href="/zpravodaj"
+        class="bg-white text-primary-dark font-semibold px-8 py-3 rounded-lg hover:bg-accent transition-colors inline-block"
+      >
+        Přihlásit se k newsletteru
+      </a>
+    </div>
+  </section>
+</BaseLayout>

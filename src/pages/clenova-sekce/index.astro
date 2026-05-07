@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+---
+
+<BaseLayout
+  title="Členská sekce"
+  description="Váš přístup k e-booku a bonusovým materiálům."
+  noIndex={true}
+>
+  <div id="loading" class="max-w-xl mx-auto px-4 py-24 text-center">
+    <p class="text-muted">Ověřuji přístup…</p>
+  </div>
+
+  <div id="content" class="hidden max-w-3xl mx-auto px-4 py-16">
+    <h1 class="text-3xl font-serif font-bold text-primary-dark mb-2">Členská sekce</h1>
+    <p class="text-muted mb-10">Vítejte! Níže najdete svůj e-book a bonusové materiály.</p>
+
+    <div class="grid sm:grid-cols-2 gap-6">
+      <!-- E-book ke stažení -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-accent/40">
+        <div class="text-3xl mb-3">📖</div>
+        <h2 class="font-serif font-bold text-primary-dark text-lg mb-2">
+          Magie Vědomého Uzdravení
+        </h2>
+        <p class="text-sm text-muted mb-4">
+          Kompletní e-book ve formátu PDF s celým postupem vědomého uzdravení.
+        </p>
+        <a
+          href="/clenova-sekce/ebook.pdf"
+          class="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-light transition-colors inline-block"
+          download
+        >
+          Stáhnout PDF
+        </a>
+      </div>
+
+      <!-- Bonusový obsah -->
+      <div class="bg-white rounded-xl p-6 shadow-sm border border-accent/40">
+        <div class="text-3xl mb-3">🎁</div>
+        <h2 class="font-serif font-bold text-primary-dark text-lg mb-2">
+          Bonusové materiály
+        </h2>
+        <p class="text-sm text-muted mb-4">
+          Meditace Strom Života a další doplňkové materiály pro hlubší práci s tělem.
+        </p>
+        <a
+          href="/clenova-sekce/bonusy"
+          class="border border-primary text-primary text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-accent/40 transition-colors inline-block"
+        >
+          Zobrazit bonusy
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="no-access" class="hidden max-w-xl mx-auto px-4 py-24 text-center">
+    <div class="text-5xl mb-6">🔒</div>
+    <h1 class="text-2xl font-serif font-bold text-primary-dark mb-4">Nemáte přístup</h1>
+    <p class="text-muted mb-6">
+      Tato sekce je dostupná pouze pro zákazníky, kteří zakoupili e-book.
+      Přístupový odkaz vám byl odeslán e-mailem po nákupu.
+    </p>
+    <a
+      href="/magie-vedomeho-uzdraveni"
+      class="bg-primary text-white font-semibold px-8 py-3 rounded-lg hover:bg-primary-light transition-colors inline-block"
+    >
+      Koupit e-book
+    </a>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ apiUrl }}>
+  (async () => {
+    try {
+      const res = await fetch(`${apiUrl}/api/auth/check`, { credentials: 'include' });
+      const data = await res.json();
+      document.getElementById('loading').classList.add('hidden');
+      if (data.authenticated) {
+        document.getElementById('content').classList.remove('hidden');
+      } else {
+        document.getElementById('no-access').classList.remove('hidden');
+      }
+    } catch {
+      document.getElementById('loading').classList.add('hidden');
+      document.getElementById('no-access').classList.remove('hidden');
+    }
+  })();
+</script>

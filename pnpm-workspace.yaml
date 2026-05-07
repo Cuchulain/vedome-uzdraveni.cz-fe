@@ -1,0 +1,5 @@
+allowBuilds:
+  esbuild: true
+  sharp: true
+patchedDependencies:
+  astro@6.3.0: patches/astro@6.3.0.patch
