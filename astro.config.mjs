@@ -22,7 +22,7 @@ export default defineConfig({
   },
   redirects: {
     // Old WordPress URL redirects (301)
-    '/jake-nase-setkani-uzdravenim/': '/novinky/jake-nase-setkani-uzdravenim',
+    '/jake-nase-setkani-uzdravenim/': '/novinky/jake-bylo-nase-setkani-s-uzdravenim',
     '/lecitelum-platit-neplatit/': '/novinky/lecitelum-platit-neplatit',
     '/berou-nam-pravo-zdravi/': '/novinky/berou-nam-pravo-zdravi',
     '/pomuze-kniha-vyresit-psychicke-problemy/': '/novinky/pomuze-kniha-vyresit-psychicke-problemy',

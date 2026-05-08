@@ -1,5 +1,5 @@
 ---
-title: "Jaké naše setkání uzdravením"
+title: "Jaké bylo naše setkání s uzdravením"
 description: "Zpráva z prvního veřejného kurzu vědomého uzdravení a plány do budoucna."
 pubDate: 2014-08-25
 draft: false
