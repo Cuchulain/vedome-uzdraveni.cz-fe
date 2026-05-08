@@ -54,7 +54,7 @@ jobs:
             SITE_URL=${{ vars.SITE_URL }}
             PUBLIC_API_URL=${{ vars.PUBLIC_API_URL }}
             PUBLIC_API_KEY=${{ secrets.PUBLIC_API_KEY }}
-          cache-from: type=gha
+          no-cache: true
           cache-to: type=gha,mode=max
 
   deploy:

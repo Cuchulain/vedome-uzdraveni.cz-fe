@@ -5,6 +5,7 @@ ARG SITE_URL=https://vedome-uzdraveni.cz
 ARG PUBLIC_API_URL=https://api.vedome-uzdraveni.cz
 ARG PUBLIC_API_KEY
 
+# Explicitní ENV zajistí invalidaci Docker cache při změně build-args.
 ENV SITE_URL=$SITE_URL \
     PUBLIC_API_URL=$PUBLIC_API_URL \
     PUBLIC_API_KEY=$PUBLIC_API_KEY
