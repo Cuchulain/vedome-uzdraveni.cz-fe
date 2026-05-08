@@ -15,7 +15,7 @@ const virtualModuleGuard = {
 };
 
 export default defineConfig({
-  site: 'https://vedome-uzdraveni.cz',
+  site: process.env.SITE_URL ?? 'https://vedome-uzdraveni.cz',
   integrations: [mdx(), sitemap()],
   vite: {
     plugins: [virtualModuleGuard, tailwindcss()],

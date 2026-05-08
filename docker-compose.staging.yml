@@ -1,0 +1,13 @@
+services:
+  fe-staging:
+    image: ghcr.io/${GITHUB_REPOSITORY}-fe:staging
+    restart: unless-stopped
+    networks:
+      - frontend-proxy
+    labels:
+      caddy: test.vedome-uzdraveni.cz
+      caddy.reverse_proxy: "{{upstreams 80}}"
+
+networks:
+  frontend-proxy:
+    external: true

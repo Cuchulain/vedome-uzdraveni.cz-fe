@@ -1,43 +1,63 @@
-# Astro Starter Kit: Minimal
+# vedome-uzdraveni.cz – Frontend
 
-```sh
-pnpm create astro@latest -- --template minimal
+Statický web postavený na [Astro](https://astro.build) s Tailwind CSS a MDX. Produkce nasazena na GitHub Pages, staging jako Docker kontejner přes Caddy.
+
+## Požadavky
+
+- Node.js ≥ 22.12.0
+- pnpm
+
+## Konfigurace
+
+Zkopírujte `.env.example` jako `.env` a doplňte hodnoty:
+
+```bash
+cp .env.example .env
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+| Proměnná | Popis |
+|---|---|
+| `SITE_URL` | Veřejná URL webu (výchozí: `https://vedome-uzdraveni.cz`) |
+| `PUBLIC_API_URL` | URL Go API backendu |
+| `PUBLIC_API_KEY` | API klíč tenanta (viditelný v prohlížeči — viz poznámka níže) |
 
-## 🚀 Project Structure
+> ⚠️ `PUBLIC_API_KEY` je součástí vygenerovaného JS bundle a viditelný v prohlížeči. Ochrana před zneužitím je řešena rate limitingem na backendu.
 
-Inside of your Astro project, you'll see the following folders and files:
+## Příkazy
 
-```text
-/
-├── public/
-├── src/
-│   └── pages/
-│       └── index.astro
-└── package.json
+| Příkaz | Akce |
+|---|---|
+| `pnpm install` | Instalace závislostí |
+| `pnpm dev` | Dev server na `http://localhost:4321` |
+| `pnpm build` | Produkční build do `./dist/` |
+| `pnpm preview` | Náhled buildu lokálně |
+| `pnpm astro ...` | Astro CLI příkazy |
+
+## Nasazení
+
+### Produkce – GitHub Pages
+
+Push na branch `main` spustí workflow `.github/workflows/deploy.yml`, který sestaví web a nasadí ho na GitHub Pages.
+
+### Staging – Docker
+
+Push na branch `staging` spustí `.github/workflows/docker-staging.yml`:
+
+1. Sestaví Docker image (`busybox:musl` httpd) s proměnnými z GH environment `staging`
+2. Pushne image na `ghcr.io`
+3. Zavolá Portainer webhook → automatický deploy na `test.vedome-uzdraveni.cz`
+
+Lokální spuštění staging obrazu:
+
+```bash
+docker compose -f docker-compose.staging.yml up
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+### GH Environments
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
+| Environment | Branch | URL |
+|---|---|---|
+| `github-pages` | `main` | `https://vedome-uzdraveni.cz` |
+| `staging` | `staging` | `https://test.vedome-uzdraveni.cz` |
 
-Any static assets, like images, can be placed in the `public/` directory.
-
-## 🧞 Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `pnpm install`             | Installs dependencies                            |
-| `pnpm dev`             | Starts local dev server at `localhost:4321`      |
-| `pnpm build`           | Build your production site to `./dist/`          |
-| `pnpm preview`         | Preview your build locally, before deploying     |
-| `pnpm astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `pnpm astro -- --help` | Get help using the Astro CLI                     |
-
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+Každé prostředí má vlastní `SITE_URL`, `PUBLIC_API_URL`, `PUBLIC_API_KEY` a `PORTAINER_WEBHOOK_URL`.
