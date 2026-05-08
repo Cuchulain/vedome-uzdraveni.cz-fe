@@ -1,0 +1,86 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
+---
+
+<BaseLayout
+  title="Přihlášení do členské sekce"
+  description="Zadejte svůj e-mail a my vám pošleme přihlašovací odkaz."
+  noIndex={true}
+>
+  <div class="max-w-md mx-auto px-4 py-24">
+    <div class="text-center mb-10">
+      <div class="text-5xl mb-4">🔑</div>
+      <h1 class="text-2xl font-serif font-bold text-primary-dark mb-2">Přihlášení do členské sekce</h1>
+      <p class="text-muted">Zadejte svůj e-mail a my vám pošleme přihlašovací odkaz.</p>
+    </div>
+
+    <form id="login-form" class="bg-white rounded-xl p-8 shadow-sm border border-accent/40 space-y-4">
+      <div>
+        <label for="email" class="block text-sm font-medium text-primary-dark mb-1">E-mailová adresa</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          required
+          placeholder="vas@email.cz"
+          class="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-primary/40"
+        />
+      </div>
+
+      <button
+        type="submit"
+        id="submit-btn"
+        class="w-full bg-primary text-white font-semibold py-3 rounded-lg hover:bg-primary-light transition-colors"
+      >
+        Odeslat přihlašovací odkaz
+      </button>
+
+      <p id="error-msg" class="hidden text-sm text-red-600 text-center"></p>
+    </form>
+
+    <div id="success-msg" class="hidden text-center mt-8">
+      <div class="text-4xl mb-4">📬</div>
+      <h2 class="text-xl font-serif font-bold text-primary-dark mb-2">Odkaz odeslán!</h2>
+      <p class="text-muted">Pokud je váš e-mail v našem systému, obdržíte přihlašovací odkaz během chvíle.</p>
+    </div>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ apiUrl, apiKey }}>
+  const form = document.getElementById('login-form');
+  const submitBtn = document.getElementById('submit-btn');
+  const errorMsg = document.getElementById('error-msg');
+  const successMsg = document.getElementById('success-msg');
+
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = document.getElementById('email').value.trim();
+    if (!email) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Odesílám…';
+    errorMsg.classList.add('hidden');
+
+    try {
+      const res = await fetch(`${apiUrl}/api/auth/request-link`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
+        body: JSON.stringify({ email }),
+      });
+
+      if (!res.ok) throw new Error();
+
+      form.classList.add('hidden');
+      successMsg.classList.remove('hidden');
+    } catch {
+      errorMsg.textContent = 'Něco se pokazilo. Zkuste to prosím znovu.';
+      errorMsg.classList.remove('hidden');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Odeslat přihlašovací odkaz';
+    }
+  });
+</script>
