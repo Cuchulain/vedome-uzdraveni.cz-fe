@@ -68,7 +68,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     btn.textContent = 'Odesílám…';
 
     try {
-      const res = await fetch(`${apiUrl}/api/ecomail/subscribe`, {
+      const res = await fetch(`${apiUrl}/api/newsletter/subscribe`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-API-Key': apiKey },
         body: JSON.stringify({
