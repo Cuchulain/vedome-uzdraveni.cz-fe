@@ -37,9 +37,9 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
           Kompletní e-book ve formátu PDF s celým postupem vědomého uzdravení.
         </p>
         <a
-          href="/clenska-sekce/ebook.pdf"
+          id="ebook-download"
+          href="#"
           class="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-light transition-colors inline-block"
-          download
         >
           Stáhnout PDF
         </a>
@@ -115,5 +115,10 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     } finally {
       window.location.href = '/';
     }
+  });
+
+  document.getElementById('ebook-download')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.location.href = `${apiUrl}/api/member/files/ebook.pdf`;
   });
 </script>
