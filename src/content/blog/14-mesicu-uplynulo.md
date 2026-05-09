@@ -11,7 +11,7 @@ Takže je to pro mě příležitost k oslavě 🙂
 
 Celý postup jsem pro Vás napsal a dal [sem na web](/).
 
-Postup se dá použít při jakékoli nemoci. V mém případě šlo konkrétně o Dnu – potvora mě trápila čím dál častěji, v poslední době i 2× za měsíc.
+Postup se dá použít při jakékoli nemoci. V mém případě šlo konkrétně o Dnu – potvora mě trápila čím dál častěji, v poslední době i dvakrát za měsíc.
 
 A teď už mám **1 rok a 2 měsíce klid.**
 
