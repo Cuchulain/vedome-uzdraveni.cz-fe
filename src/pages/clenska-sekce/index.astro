@@ -65,6 +65,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     btn.textContent = 'Stahuje se… 100 %';
     const maxWidth = btn.offsetWidth;
     btn.style.width = maxWidth + 'px';
+    btn.style.textAlign = 'left';
 
     btn.disabled = true;
     btn.textContent = 'Připravuji…';
@@ -112,6 +113,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
       btn.disabled = false;
       btn.textContent = originalText;
       btn.style.width = '';
+      btn.style.textAlign = '';
     }
   }
 
