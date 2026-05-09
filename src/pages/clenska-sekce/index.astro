@@ -58,7 +58,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 <script define:vars={{ apiUrl, apiKey }}>
   const headers = { 'X-API-Key': apiKey };
 
-  async function downloadFile(filename, btn) {
+  async function downloadFile(filename, downloadName, btn) {
     const originalText = btn.textContent;
 
     // Změřím šířku nejdelšího možného textu a zafixuji ji.
@@ -102,7 +102,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = filename;
+      a.download = downloadName || filename;
       document.body.appendChild(a);
       a.click();
       a.remove();
@@ -135,6 +135,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
           <p class="text-sm text-muted mb-4">${f.description ?? ''}</p>
           <button
             data-filename="${f.filename}"
+            data-download-name="${f.download_name ?? ''}"
             class="download-btn ${btnClass} text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors inline-block whitespace-nowrap"
           >
             Stáhnout
@@ -144,7 +145,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     }).join('');
 
     grid.querySelectorAll('.download-btn').forEach((btn) => {
-      btn.addEventListener('click', () => downloadFile(btn.dataset.filename, btn));
+      btn.addEventListener('click', () => downloadFile(btn.dataset.filename, btn.dataset.downloadName, btn));
     });
   }
 
