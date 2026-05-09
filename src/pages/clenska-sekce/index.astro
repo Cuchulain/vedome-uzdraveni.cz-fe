@@ -58,24 +58,54 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 <script define:vars={{ apiUrl, apiKey }}>
   const headers = { 'X-API-Key': apiKey };
 
-  async function downloadFile(filename) {
-    const res = await fetch(`${apiUrl}/api/member/files/${encodeURIComponent(filename)}`, {
-      credentials: 'include',
-      headers,
-    });
-    if (!res.ok) {
-      alert('Stažení se nezdařilo. Zkuste se znovu přihlásit.');
-      return;
+  async function downloadFile(filename, btn) {
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Připravuji…';
+
+    try {
+      const res = await fetch(`${apiUrl}/api/member/files/${encodeURIComponent(filename)}`, {
+        credentials: 'include',
+        headers,
+      });
+      if (!res.ok) {
+        alert('Stažení se nezdařilo. Zkuste se znovu přihlásit.');
+        return;
+      }
+
+      const total = parseInt(res.headers.get('Content-Length') ?? '0', 10);
+      let loaded = 0;
+      const chunks = [];
+      const reader = res.body.getReader();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        loaded += value.length;
+        if (total > 0) {
+          const pct = Math.round((loaded / total) * 100);
+          btn.textContent = `Stahuje se… ${pct} %`;
+        } else {
+          btn.textContent = `Stahuje se… ${Math.round(loaded / 1024)} kB`;
+        }
+      }
+
+      const blob = new Blob(chunks);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert('Stažení se nezdařilo.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
     }
-    const blob = await res.blob();
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    URL.revokeObjectURL(url);
   }
 
   function renderFiles(files) {
@@ -105,7 +135,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     }).join('');
 
     grid.querySelectorAll('.download-btn').forEach((btn) => {
-      btn.addEventListener('click', () => downloadFile(btn.dataset.filename));
+      btn.addEventListener('click', () => downloadFile(btn.dataset.filename, btn));
     });
   }
 
