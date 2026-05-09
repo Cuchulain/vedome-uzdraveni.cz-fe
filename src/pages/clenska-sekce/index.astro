@@ -60,6 +60,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 
   async function downloadFile(filename, btn) {
     const originalText = btn.textContent;
+    btn.style.width = btn.offsetWidth + 'px';
     btn.disabled = true;
     btn.textContent = 'Připravuji…';
 
@@ -105,6 +106,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     } finally {
       btn.disabled = false;
       btn.textContent = originalText;
+      btn.style.width = '';
     }
   }
 
