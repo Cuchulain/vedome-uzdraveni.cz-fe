@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const apiUrl = import.meta.env.PUBLIC_API_URL ?? 'http://localhost:3001';
+const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
+---
+
+<BaseLayout
+  title="Ověření přihlášení"
+  description="Ověřujeme váš přihlašovací odkaz…"
+  noIndex={true}
+>
+  <div class="max-w-md mx-auto px-4 py-24 text-center">
+    <div id="loading">
+      <div class="text-5xl mb-4">🔄</div>
+      <p class="text-muted">Ověřujeme váš přihlašovací odkaz…</p>
+    </div>
+
+    <div id="error-msg" class="hidden">
+      <div class="text-5xl mb-4">❌</div>
+      <h1 class="text-2xl font-serif font-bold text-primary-dark mb-2">Neplatný odkaz</h1>
+      <p class="text-muted mb-6">Přihlašovací odkaz je neplatný nebo vypršel. Požádejte o nový.</p>
+      <a
+        href="/prihlaseni"
+        class="inline-block bg-primary text-white font-semibold py-3 px-6 rounded-lg hover:bg-primary-light transition-colors"
+      >
+        Zpět na přihlášení
+      </a>
+    </div>
+  </div>
+</BaseLayout>
+
+<script define:vars={{ apiUrl, apiKey }}>
+  const token = new URLSearchParams(window.location.search).get('token');
+
+  async function verify() {
+    if (!token) {
+      showError();
+      return;
+    }
+
+    try {
+      const res = await fetch(`${apiUrl}/api/auth/verify?token=${encodeURIComponent(token)}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: { 'X-API-Key': apiKey },
+      });
+
+      if (!res.ok) throw new Error();
+
+      window.location.replace('/clenska-sekce');
+    } catch {
+      showError();
+    }
+  }
+
+  function showError() {
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('error-msg').classList.remove('hidden');
+  }
+
+  verify();
+</script>

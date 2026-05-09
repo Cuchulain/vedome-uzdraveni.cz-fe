@@ -26,41 +26,8 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     </div>
     <p class="text-muted mb-10">Vítejte! Níže najdete svůj e-book a bonusové materiály.</p>
 
-    <div class="grid sm:grid-cols-2 gap-6">
-      <!-- E-book ke stažení -->
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-accent/40">
-        <div class="text-3xl mb-3">📖</div>
-        <h2 class="font-serif font-bold text-primary-dark text-lg mb-2">
-          Magie Vědomého Uzdravení
-        </h2>
-        <p class="text-sm text-muted mb-4">
-          Kompletní e-book ve formátu PDF s celým postupem vědomého uzdravení.
-        </p>
-        <a
-          id="ebook-download"
-          href="#"
-          class="bg-primary text-white text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-primary-light transition-colors inline-block"
-        >
-          Stáhnout PDF
-        </a>
-      </div>
-
-      <!-- Bonusový obsah -->
-      <div class="bg-white rounded-xl p-6 shadow-sm border border-accent/40">
-        <div class="text-3xl mb-3">🎁</div>
-        <h2 class="font-serif font-bold text-primary-dark text-lg mb-2">
-          Bonusové materiály
-        </h2>
-        <p class="text-sm text-muted mb-4">
-          Meditace Strom Života a další doplňkové materiály pro hlubší práci s tělem.
-        </p>
-        <a
-          href="/clenska-sekce/bonusy"
-          class="border border-primary text-primary text-sm font-semibold px-5 py-2.5 rounded-lg hover:bg-accent/40 transition-colors inline-block"
-        >
-          Zobrazit bonusy
-        </a>
-      </div>
+    <div id="files-grid" class="grid sm:grid-cols-2 gap-6">
+      <!-- Karty souborů jsou generovány dynamicky ze seznamu vráceného API -->
     </div>
   </div>
 
@@ -89,16 +56,115 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 </BaseLayout>
 
 <script define:vars={{ apiUrl, apiKey }}>
+  const headers = { 'X-API-Key': apiKey };
+
+  async function downloadFile(filename, downloadName, btn) {
+    const originalText = btn.textContent;
+
+    // Změřím šířku nejdelšího možného textu a zafixuji ji.
+    btn.textContent = 'Stahuje se… 100 %';
+    const maxWidth = btn.offsetWidth;
+    btn.style.width = maxWidth + 'px';
+    btn.style.textAlign = 'left';
+
+    btn.disabled = true;
+    btn.textContent = 'Připravuji…';
+
+    try {
+      const res = await fetch(`${apiUrl}/api/member/files/${encodeURIComponent(filename)}`, {
+        credentials: 'include',
+        headers,
+      });
+      if (!res.ok) {
+        alert('Stažení se nezdařilo. Zkuste se znovu přihlásit.');
+        return;
+      }
+
+      const total = parseInt(res.headers.get('Content-Length') ?? '0', 10);
+      let loaded = 0;
+      const chunks = [];
+      const reader = res.body.getReader();
+
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        chunks.push(value);
+        loaded += value.length;
+        if (total > 0) {
+          const pct = Math.round((loaded / total) * 100);
+          btn.textContent = `Stahuje se… ${pct} %`;
+        } else {
+          btn.textContent = `Stahuje se… ${Math.round(loaded / 1024)} kB`;
+        }
+      }
+
+      const blob = new Blob(chunks);
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = downloadName || filename;
+      document.body.appendChild(a);
+      a.click();
+      a.remove();
+      URL.revokeObjectURL(url);
+    } catch {
+      alert('Stažení se nezdařilo.');
+    } finally {
+      btn.disabled = false;
+      btn.textContent = originalText;
+      btn.style.width = '';
+      btn.style.textAlign = '';
+    }
+  }
+
+  function renderFiles(files) {
+    const grid = document.getElementById('files-grid');
+    if (!files || files.length === 0) {
+      grid.innerHTML = '<p class="text-muted col-span-2">Zatím nejsou k dispozici žádné soubory.</p>';
+      return;
+    }
+    grid.innerHTML = files.map((f) => {
+      const isEbook = f.type === 'ebook';
+      const btnClass = isEbook
+        ? 'bg-primary text-white hover:bg-primary-light'
+        : 'border border-primary text-primary hover:bg-accent/40';
+      return `
+        <div class="bg-white rounded-xl p-6 shadow-sm border border-accent/40">
+          <div class="text-3xl mb-3">${f.icon ?? '📄'}</div>
+          <h2 class="font-serif font-bold text-primary-dark text-lg mb-2">${f.label}</h2>
+          <p class="text-sm text-muted mb-4">${f.description ?? ''}</p>
+          <button
+            data-filename="${f.filename}"
+            data-download-name="${f.download_name ?? ''}"
+            class="download-btn ${btnClass} text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors inline-block whitespace-nowrap"
+          >
+            Stáhnout
+          </button>
+        </div>
+      `;
+    }).join('');
+
+    grid.querySelectorAll('.download-btn').forEach((btn) => {
+      btn.addEventListener('click', () => downloadFile(btn.dataset.filename, btn.dataset.downloadName, btn));
+    });
+  }
+
   (async () => {
     try {
-      const res = await fetch(`${apiUrl}/api/auth/check`, { credentials: 'include', headers: { 'X-API-Key': apiKey } });
-      const data = await res.json();
+      const authRes = await fetch(`${apiUrl}/api/auth/check`, { credentials: 'include', headers });
+      const authData = await authRes.json();
       document.getElementById('loading').classList.add('hidden');
-      if (data.authenticated) {
-        document.getElementById('content').classList.remove('hidden');
-      } else {
+
+      if (!authData.authenticated) {
         document.getElementById('no-access').classList.remove('hidden');
+        return;
       }
+
+      document.getElementById('content').classList.remove('hidden');
+
+      const filesRes = await fetch(`${apiUrl}/api/member/files`, { credentials: 'include', headers });
+      const files = filesRes.ok ? await filesRes.json() : [];
+      renderFiles(files);
     } catch {
       document.getElementById('loading').classList.add('hidden');
       document.getElementById('no-access').classList.remove('hidden');
@@ -110,15 +176,10 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
       await fetch(`${apiUrl}/api/auth/logout`, {
         method: 'POST',
         credentials: 'include',
-        headers: { 'X-API-Key': apiKey },
+        headers,
       });
     } finally {
       window.location.href = '/';
     }
-  });
-
-  document.getElementById('ebook-download')?.addEventListener('click', (e) => {
-    e.preventDefault();
-    window.location.href = `${apiUrl}/api/member/files/ebook.pdf`;
   });
 </script>

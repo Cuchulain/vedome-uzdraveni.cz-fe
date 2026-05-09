@@ -9,7 +9,7 @@ V červenci jsme se sešli osobně a užili jsme si celý uzdravovací postup na
 
 Vzhledem k tomu, že to byl první veřejný kurz, sešlo se nás jen pár, každopádně kurz se nám vydařil a účastníkům se moc líbil 🙂
 
-Rozhodl jsem se, že udělám ještě jeden, dokud na něj mám čas. Vypadá to, že teď v srpnu **bude na delší dobu poslední**, protože se budu věnovat šíření informací online přes internet.
+Rozhodl jsem se, že udělám ještě jeden, dokud na něj mám čas. Vypadá to, že teď v srpnu **bude na delší dobu poslední**, protože se budu věnovat šíření informací přes internet.
 
 Druhý kurz proběhl v sobotu 23. 8. 2014 v Nesměřicích u Zruče nad Sázavou.
 
