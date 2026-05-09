@@ -60,7 +60,12 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 
   async function downloadFile(filename, btn) {
     const originalText = btn.textContent;
-    btn.style.width = btn.offsetWidth + 'px';
+
+    // Změřím šířku nejdelšího možného textu a zafixuji ji.
+    btn.textContent = 'Stahuje se… 100 %';
+    const maxWidth = btn.offsetWidth;
+    btn.style.width = maxWidth + 'px';
+
     btn.disabled = true;
     btn.textContent = 'Připravuji…';
 
