@@ -39,6 +39,12 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
         ></textarea>
       </div>
 
+      <!-- Honeypot: skryté pole, boti ho vyplní, lidé ne -->
+      <div aria-hidden="true" style="position:absolute;opacity:0;height:0;overflow:hidden;pointer-events:none;">
+        <label for="website">Web</label>
+        <input id="website" name="website" type="text" tabindex="-1" autocomplete="off" />
+      </div>
+
       <div id="form-error" class="hidden rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700"></div>
       <div id="form-success" class="hidden rounded-lg bg-emerald-50 border border-emerald-200 px-4 py-3 text-sm text-emerald-800">
         ✓ Zpráva odeslána. Ozvu se co nejdříve.
@@ -64,6 +70,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 </BaseLayout>
 
 <script define:vars={{ apiUrl, apiKey }}>
+  const loadedAt = Date.now();
   const form = document.getElementById('contact-form');
   const btn = document.getElementById('submit-btn');
   const errorBox = document.getElementById('form-error');
@@ -80,6 +87,8 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
       name: form.name.value.trim(),
       email: form.email.value.trim(),
       message: form.message.value.trim(),
+      website: form.website.value,
+      loaded_at: loadedAt,
     };
 
     try {
