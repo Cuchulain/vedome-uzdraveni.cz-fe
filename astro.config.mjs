@@ -3,6 +3,7 @@ import { defineConfig } from 'astro/config';
 import mdx from '@astrojs/mdx';
 import sitemap from '@astrojs/sitemap';
 import tailwindcss from '@tailwindcss/vite';
+import umami from '@yeskunall/astro-umami';
 
 /** Workaround: Vite 7 load-fallback incorrectly tries to open virtual module IDs as files. */
 const virtualModuleGuard = {
@@ -16,7 +17,14 @@ const virtualModuleGuard = {
 
 export default defineConfig({
   site: process.env.SITE_URL ?? 'https://vedome-uzdraveni.cz',
-  integrations: [mdx(), sitemap()],
+  integrations: [
+    mdx(),
+    sitemap(),
+    umami({
+        id: "dfc3ef08-e94b-4e5b-9e5a-cd1abd97bcae",
+        endpointUrl: "https://analytics.rebma.cz"
+    })
+  ],
   vite: {
     plugins: [virtualModuleGuard, tailwindcss()],
   },
