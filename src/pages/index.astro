@@ -21,7 +21,7 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 
 <BaseLayout
   title="Magie Vědomého Uzdravení – e-book"
-  description="E-book s ověřeným postupem vědomého uzdravení. Bez léků, bez diety, bez chirurgie. Jan Čejka se takto uzdravil z dny."
+  description="Osobní zkušenost Jana Čejky a praktický postup vědomé práce s tělem. Co autor pozoroval, z čeho vychází a kde jsou hranice jeho tvrzení."
 >
   <!-- Hero sales section -->
   <section class="bg-gradient-to-b from-primary-dark to-primary text-white py-20 px-4">
@@ -31,7 +31,8 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
         Magie Vědomého Uzdravení
       </h1>
       <p class="text-xl text-accent/90 mb-8">
-        Ověřený postup, jak si pomoct vědomě – bez léků, bez celoživotní diety, bez chirurgie.
+        Praktický postup vědomé práce s tělem, který vznikl z osobní zkušenosti
+        a pozorování autora.
       </p>
       <a
         href="#koupit"
@@ -44,29 +45,31 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
 
   <!-- Příběh -->
   <section class="max-w-3xl mx-auto px-4 py-16">
-    <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">Můj příběh</h2>
+    <p class="text-primary text-sm font-semibold uppercase tracking-wider mb-2">Osobní zkušenost autora</p>
+    <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">Jak vzniklo Vědomé Uzdravení</h2>
     <div class="flex flex-col sm:flex-row gap-8 items-center sm:items-start">
       <div class="space-y-4 text-text flex-1">
         <p>
           Bylo mi čtyřicet, když mě v noci vzbudila taková bolest palce u nohy, že jsem nevěděl,
           jestli vůbec ráno vstanu. Záněty se vracely, intervaly se zkracovaly –
-          jednou palec, jindy kotník. Na internetu jsem pak našel popis příznaků
-          <strong>Dny</strong>. A hned i větu: <em>„genetická porucha, celoživotní dieta, nelze vyléčit“.</em>
+          jednou palec, jindy kotník. Podle dostupných informací a opakovaného průběhu příznaků
+          jsem dospěl k závěru, že jde o <strong>dnu</strong>.
+          Nešlo o diagnózu stanovenou lékařem ani potvrzenou laboratorním vyšetřením.
         </p>
         <p>
           Přijal jsem to. Asi půl roku. A pak mi bylo dost – dost strachu z každého záchvatu,
-          dost omezování a léků, které řeší symptomy, ale ne příčinu.
-          Takovým ptákovinám jsem nikdy nevěřil.
+          dost omezování. Začal jsem proto hledat vlastní způsob, jak s tělem a obtížemi
+          vědomě pracovat.
         </p>
         <p>
-          Měl jsem za sebou přes 25 let studia vědomých léčivých procesů. Věděl jsem, že tělo
-          umí víc, než mu lékaři připisují. Tak jsem to prostě zkusil – vědomě, metodicky,
-          každý den.
+          Měl jsem za sebou přes 25 let studia vědomých léčivých procesů. Vytvořený postup
+          jsem používal vědomě, metodicky a každý den.
         </p>
         <p>
-          Výsledek? <strong>Žádné záchvaty, žádné léky, žádná dieta.</strong> Klouby se
-          napravily. A já jsem postup sepsal do e-booku, aby ho mohl použít každý – bez ohledu
-          na to, s čím bojuje.
+          Podle mého pozorování pak záchvaty na několik let ustoupily bez léků a celoživotní
+          diety. Postupně přestaly být patrné také změny kloubů, které jsem s obtížemi spojoval.
+          Tuto zkušenost nepředkládám jako lékařsky potvrzenou diagnózu ani klinický důkaz
+          účinnosti. Je zdrojem postupu, který jsem sepsal do e-booku.
         </p>
       </div>
       <div class="shrink-0 sm:mt-1 flex flex-col items-center">
@@ -83,6 +86,52 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
     </div>
   </section>
 
+  <!-- Princip -->
+  <section class="bg-primary-dark text-white py-16 px-4">
+    <div class="max-w-3xl mx-auto">
+      <p class="text-accent/80 text-sm font-semibold uppercase tracking-wider mb-2">Princip a názor autora</p>
+      <h2 class="text-2xl font-serif font-bold mb-6">Uzdravení není výhradně výsledkem lékařského zásahu</h2>
+      <div class="space-y-4 text-accent/90 leading-relaxed">
+        <p>
+          Zastávám názor, že člověk se může v některých situacích uzdravit také bez přímého
+          zásahu lékaře. Schopnost obnovy probíhá v živém organismu a člověk s ní podle mé
+          zkušenosti může aktivně spolupracovat.
+        </p>
+        <p>
+          Neznamená to, že je lékařská péče zbytečná nebo že lze bez vyšetření bezpečně určit
+          příčinu každé obtíže. Lékařská péče může být důležitá, nezastupitelná a v akutních
+          situacích život zachraňující. Tvrdím pouze, že možnost uzdravení není omezena jen na
+          postupy poskytované lékařem.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pozorování -->
+  <section class="max-w-3xl mx-auto px-4 py-16">
+    <p class="text-primary text-sm font-semibold uppercase tracking-wider mb-2">Případová pozorování</p>
+    <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">Co jsem při své práci zaznamenal</h2>
+    <div class="space-y-4 text-text leading-relaxed">
+      <p>
+        Při dlouholeté léčitelské práci jsem opakovaně pozoroval rychlé, bezprostředně viditelné
+        změny fyzického stavu. V některých případech šlo o orientačně měřitelnou odchylku
+        v postavení části těla až přibližně jeden centimetr, která se během pěti až deseti minut
+        výrazně zmenšila nebo přestala být patrná.
+      </p>
+      <p>
+        Pokud nebylo provedeno odborné vyšetření, neoznačuji tyto případy za prokázanou změnu
+        kostní tkáně ani za klinicky potvrzené odstranění strukturální deformace. Pozorovaná
+        změna mohla souviset například s postavením kloubu, svalovým napětím, držením těla
+        nebo jiným procesem, který nebyl odborně zkoumán.
+      </p>
+      <p>
+        Další lidé mi po použití postupu popsali vlastní pozitivní zkušenosti. Jejich sdělení
+        uvádím jako osobní výpovědi, nikoli jako důkaz, že postup způsobí stejný výsledek
+        každému člověku.
+      </p>
+    </div>
+  </section>
+
   <!-- Co je v e-booku -->
   <section class="bg-accent/20 py-16 px-4">
     <div class="max-w-3xl mx-auto flex flex-col sm:flex-row items-center gap-10">
@@ -90,11 +139,11 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
         <h2 class="text-2xl font-serif font-bold text-primary-dark mb-8">Co e-book obsahuje</h2>
         <ul class="space-y-4">
           {[
-            'Přesný postup, který Jan použil k vyléčení Dny – krok za krokem',
-            'Jak přimět vlastní tělo ke spolupráci a spustit přirozené hojení',
+            'Postup, který Jan používal při vlastní práci s opakovanými obtížemi – krok za krokem',
+            'Jak vědomě zaměřit pozornost na tělo a jeho procesy obnovy',
             'Meditace a techniky, které zvládnete i bez předchozí zkušenosti',
-            'Proč tato metoda funguje i u stavů, které lékaři označují za „nevyléčitelné"',
-            'Jak výsledky udržet a nepotřebovat léky ani dietu dlouhodobě',
+            'Autorovo vysvětlení principu a zkušenosti, ze kterých metoda vychází',
+            'Jak postup pravidelně praktikovat a vlastní zkušenost průběžně vyhodnocovat',
           ].map((item) => (
             <li class="flex items-start gap-3">
               <span class="text-primary font-bold text-lg mt-0.5">✓</span>
@@ -119,7 +168,11 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
   <!-- Reference -->
   {testimonialsWithContent.length > 0 && (
     <section class="max-w-4xl mx-auto px-4 py-16">
-      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-10 text-center">Co říkají čtenáři</h2>
+      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-3 text-center">Osobní zkušenosti čtenářů</h2>
+      <p class="text-muted text-sm text-center max-w-2xl mx-auto mb-10">
+        Jde o původní subjektivní výpovědi jednotlivých lidí. Nejde o klinické hodnocení
+        ani o záruku stejného výsledku pro další čtenáře.
+      </p>
       <div class="grid sm:grid-cols-3 gap-6">
         {testimonialsWithContent.map(({ data, rendered, body }) => {
           const hasExcerpt = Boolean(data.excerpt);
@@ -162,6 +215,34 @@ const apiKey = import.meta.env.PUBLIC_API_KEY ?? '';
       </div>
     </section>
   )}
+
+  <!-- Hranice tvrzení -->
+  <section class="max-w-3xl mx-auto px-4 py-16">
+    <div class="bg-white rounded-2xl border border-accent p-8 sm:p-10">
+      <p class="text-primary text-sm font-semibold uppercase tracking-wider mb-2">Hranice tvrzení a bezpečnost</p>
+      <h2 class="text-2xl font-serif font-bold text-primary-dark mb-5">Co e-book nabízí – a co neslibuje</h2>
+      <div class="space-y-4 text-text leading-relaxed">
+        <p>
+          E-book popisuje autorovu zkušenost, jeho výklad a postup pro vlastní praxi.
+          Není zdravotnickou službou, diagnostickým nástrojem ani zárukou vyléčení.
+          Výsledek, jeho rychlost ani trvalost nelze předem slíbit.
+        </p>
+        <p>
+          Nejasné, nové, zhoršující se nebo akutní příznaky je důležité nepřehlížet.
+          V takové situaci vyhledejte odpovídající odbornou nebo akutní péči.
+          Předepsanou léčbu neměňte pouze na základě této knihy.
+        </p>
+        <p>
+          Tato hranice neruší hlavní myšlenku knihy: člověk může se schopností vlastního
+          organismu k obnově vědomě spolupracovat a uzdravení může nastat i bez přímého
+          lékařského zásahu.
+        </p>
+      </div>
+      <a href="/principy-a-hranice" class="inline-flex mt-6 text-primary font-semibold hover:underline">
+        Přečíst podrobné principy a hranice tvrzení →
+      </a>
+    </div>
+  </section>
 
   <!-- Druhá CTA za referencemi -->
   <section class="bg-primary/5 border-y border-primary/10 py-12 px-4 text-center">

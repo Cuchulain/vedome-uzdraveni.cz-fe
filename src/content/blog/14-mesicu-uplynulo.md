@@ -1,20 +1,25 @@
 ---
-title: "14 měsíců uplynulo od chvíle, kdy jsem se vyléčil"
-description: "Rok a dva měsíce bez záchvatu Dny. Oslava a pozvánka pro ty, kdo se chtějí uzdravit bez léků."
+title: "14 měsíců od chvíle, kdy mé obtíže ustoupily"
+description: "Osobní ohlédnutí za obdobím bez záchvatů, které jsem podle příznaků spojoval s dnou."
 pubDate: 2015-06-08
 draft: false
 ---
 
-Je to už **14 měsíců** od chvíle, kdy jsem se zbavil údajně nevyléčitelné nemoci.
+Je to už **14 měsíců** od chvíle, kdy ustoupily obtíže, které jsem podle jejich opakovaného
+průběhu a dostupných informací spojoval s dnou. Nešlo o lékařsky ani laboratorně potvrzenou
+diagnózu.
 
 Takže je to pro mě příležitost k oslavě 🙂
 
 Celý postup jsem pro Vás napsal a dal [sem na web](/).
 
-Postup se dá použít při jakékoli nemoci. V mém případě šlo konkrétně o Dnu – potvora mě trápila čím dál častěji, v poslední době i dvakrát za měsíc.
+Postup jsem vytvořil jako způsob vědomé práce s tělem a používal jsem ho právě při těchto
+obtížích – potvora mě trápila čím dál častěji, v poslední době i dvakrát za měsíc.
 
 A teď už mám **1 rok a 2 měsíce klid.**
 
-Kdo se chcete uzdravit bez léků a lékařů, [mrkněte na návod](/) a hlavně dělejte to, co v něm píšu. Čtení samo o sobě uzdraví málokoho. Důležitá je **akce** 🙂
+Pokud chcete poznat postup, se kterým spojuji svou zkušenost, [mrkněte na návod](/) a hlavně
+ho aktivně praktikujte. Samotné čtení zkušenost nepřinese. Výsledek nelze předem zaručit
+a kniha nenahrazuje potřebnou diagnostiku nebo akutní péči.
 
 *Jan Čejka*
