@@ -1,18 +1,23 @@
 ---
 title: "Pomůže kniha vyřešit psychické problémy?"
-description: "Odpověď na časté otázky: funguje postup vědomého uzdravení i při psychických obtížích?"
+description: "Autorův pohled na využití postupů z knihy při psychických obtížích a hranice tohoto tvrzení."
 pubDate: 2014-10-09
 draft: false
 ---
 
 Často se mě lidi ptají, jestli kniha Magie Vědomého Uzdravení pomůže i v případě psychických problémů.
 
-Celý postup je vytvořen se záměrem uzdravení těla a vyléčení fyzických potíží. Pokud mají psychické problémy původ v nějaké fyzické deformaci, kniha pomůže určitě.
+Celý postup jsem vytvořil se záměrem vědomé práce s tělem a fyzickými obtížemi. Některé jeho
+kroky mohou ovlivnit také to, jak člověk vnímá vlastní psychický stav.
 
-Každopádně postup obsahuje kroky, které uzdravují i samotnou psychiku – a postupem času se z reakcí čtenářů dozvídám, že i tyto „přípravné" kroky mají úžasný uzdravující účinek.
+Postupem času mi někteří čtenáři popsali, že pro ně měly i tyto „přípravné“ kroky pozitivní
+účinek. Jde o jejich subjektivní zkušenosti, nikoli o klinické ověření účinnosti při konkrétní
+psychické poruše.
 
-Takže odpověď zní **ANO** 🙂 Ač jsem to původně neměl v plánu, uzdravování probíhá na více rovinách, než jen na fyzické.
+Moje odpověď proto zní: postup lze vyzkoušet jako vlastní vědomou praxi, ale nelze předem
+slíbit, že vyřeší psychické obtíže nebo jejich příčinu.
 
-Samozřejmě vždy je velmi vhodné odhalit a vyřešit i příčinu nemoci, protože nemoc je signálem nerovnováhy na jiné úrovni. Pokud dojde „jen" k uzdravení na fyzické úrovni a příčina zůstává, objeví se problém někde jinde.
+Silné, dlouhodobé nebo zhoršující se psychické obtíže je důležité nepodceňovat. Kniha není
+diagnostickým nástrojem ani náhradou krizové, psychiatrické nebo psychoterapeutické péče.
 
 *Jan Čejka*

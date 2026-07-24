@@ -13,7 +13,7 @@ interface Props {
 
 const {
   title,
-  description = 'Vědomé uzdravení bez léků – ověřený postup, jak si pomoct sám. Jan Čejka se vyléčil z Dny bez léků a diety.',
+  description = 'Vědomé Uzdravení – zkušenosti Jana Čejky a praktický postup vědomé práce s tělem.',
   ogImage = '/og-image.png',
   ogType = 'website',
   noIndex = false,
@@ -83,6 +83,7 @@ const ogImageURL = new URL(ogImage, Astro.site);
         </a>
         <ul class="hidden sm:flex items-center gap-6 text-sm font-medium">
           <li><a href="/" class="text-text hover:text-primary transition-colors">E-book</a></li>
+          <li><a href="/principy-a-hranice" class="text-text hover:text-primary transition-colors">Principy</a></li>
           <li><a href="/novinky" class="text-text hover:text-primary transition-colors">Blog</a></li>
           <li><a href="/zpravodaj" class="text-text hover:text-primary transition-colors">Newsletter</a></li>
           <li><a href="/kontakt" class="text-text hover:text-primary transition-colors">Kontakt</a></li>
@@ -106,13 +107,14 @@ const ogImageURL = new URL(ogImage, Astro.site);
           <Image src={logo} alt="Vědomé Uzdravení" width={40} height={40} densities={[1, 2, 3]} class="w-10 h-10 opacity-90" />
           <div>
             <p class="font-serif font-bold text-lg">Vědomé Uzdravení</p>
-            <p class="text-accent/80 text-sm">Vědomé léčivé procesy, které fungují.</p>
+            <p class="text-accent/80 text-sm">Vědomá práce s tělem a vlastní zkušeností.</p>
           </div>
         </div>
         <div>
           <p class="font-semibold mb-3">Stránky</p>
           <ul class="space-y-2 text-accent/80">
             <li><a href="/" class="hover:text-white transition-colors">E-book</a></li>
+            <li><a href="/principy-a-hranice" class="hover:text-white transition-colors">Principy a hranice</a></li>
             <li><a href="/novinky" class="hover:text-white transition-colors">Blog</a></li>
             <li><a href="/zpravodaj" class="hover:text-white transition-colors">Newsletter</a></li>
           </ul>
