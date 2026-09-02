@@ -14,10 +14,10 @@ const { author, excerpt, location } = testimonial.data;
 <article class="bg-white rounded-xl p-6 shadow-sm border border-accent/40 flex flex-col">
   {
     excerpt ? (
-      <details class="group flex-1">
+      <details class="group/testimonial flex-1">
         <summary class="list-none cursor-pointer rounded-sm">
           <p class="text-text italic text-sm leading-relaxed mb-3">{excerpt}</p>
-          <span class="inline-flex min-h-11 items-center gap-1 text-primary text-xs font-medium group-open:hidden">
+          <span class="inline-flex min-h-11 items-center gap-1 text-primary text-xs font-medium group-open/testimonial:hidden">
             Celé hodnocení
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -33,7 +33,7 @@ const { author, excerpt, location } = testimonial.data;
               />
             </svg>
           </span>
-          <span class="hidden min-h-11 group-open:inline-flex items-center gap-1 text-muted text-xs font-medium">
+          <span class="hidden min-h-11 group-open/testimonial:inline-flex items-center gap-1 text-muted text-xs font-medium">
             Skrýt
             <svg
               xmlns="http://www.w3.org/2000/svg"
