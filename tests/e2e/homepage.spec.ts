@@ -7,10 +7,9 @@ test('homepage shows ebook CTA and member area link', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Magie Vědomého Uzdravení' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Koupit e-book' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Členská sekce' })).toBeVisible();
-  await expect(page.getByRole('link', { name: 'Zjistit, jak funguje Mira' })).toHaveAttribute(
-    'href',
-    '/mira'
-  );
+  await expect(
+    page.getByRole('link', { name: 'Poznejte Miru – AI průvodkyni uzdravením' })
+  ).toHaveAttribute('href', '/mira');
 });
 
 test('mobile menu exposes the primary navigation', async ({ page }) => {
