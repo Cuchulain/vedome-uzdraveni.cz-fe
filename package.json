@@ -14,11 +14,6 @@
     "test:e2e:headed": "playwright test --headed",
     "test:e2e:ui": "playwright test --ui"
   },
-  "pnpm": {
-    "patchedDependencies": {
-      "astro@6.3.0": "patches/astro@6.3.0.patch"
-    }
-  },
   "dependencies": {
     "@astrojs/mdx": "^5.0.4",
     "@astrojs/sitemap": "^3.7.2",
