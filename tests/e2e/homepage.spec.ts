@@ -12,6 +12,11 @@ test('homepage shows ebook CTA and member area link', async ({ page }) => {
 test('homepage links to the chatbot and tracks the click with Umami', async ({ page }) => {
   await page.goto('/');
 
+  await expect(page.getByRole('link', { name: 'Zjistit více o Miře' })).toHaveAttribute(
+    'href',
+    '/mira'
+  );
+
   const chatbotLink = page.getByRole('link', {
     name: 'Promluvit si s Mirou v Telegramu',
   });
