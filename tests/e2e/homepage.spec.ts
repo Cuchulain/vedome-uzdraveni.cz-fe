@@ -13,7 +13,7 @@ test('homepage links to the chatbot and tracks the click with Umami', async ({ p
   await page.goto('/');
 
   const chatbotLink = page.getByRole('link', {
-    name: 'Otevřít AI průvodce v Telegramu',
+    name: 'Promluvit si s Mirou v Telegramu',
   });
 
   await expect(chatbotLink).toHaveAttribute('href', 'https://t.me/uSkyCzBot?start=UZDRA20');
