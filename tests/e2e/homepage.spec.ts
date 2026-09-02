@@ -7,6 +7,33 @@ test('homepage shows ebook CTA and member area link', async ({ page }) => {
   await expect(page.getByRole('heading', { level: 1, name: 'Magie Vědomého Uzdravení' })).toBeVisible();
   await expect(page.getByRole('button', { name: 'Koupit e-book' })).toBeVisible();
   await expect(page.getByRole('link', { name: 'Členská sekce' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Zjistit, jak funguje Mira' })).toHaveAttribute(
+    'href',
+    '/mira'
+  );
+});
+
+test('mobile menu exposes the primary navigation', async ({ page }) => {
+  await page.setViewportSize({ width: 375, height: 812 });
+  await page.goto('/');
+
+  const menuButton = page.locator('#mobile-menu-button');
+  await expect(page.getByRole('button', { name: 'Otevřít hlavní nabídku' })).toBeVisible();
+  await expect(menuButton).toHaveAttribute('aria-expanded', 'false');
+  await menuButton.click();
+
+  await expect(menuButton).toHaveAttribute('aria-expanded', 'true');
+  await expect(page.getByRole('button', { name: 'Zavřít hlavní nabídku' })).toBeVisible();
+  await expect(page.getByRole('navigation', { name: 'Mobilní navigace' })).toBeVisible();
+  await expect(page.getByRole('link', { name: 'Mira', exact: true })).toBeVisible();
+});
+
+test('additional testimonials can be expanded', async ({ page }) => {
+  await page.goto('/');
+
+  await page.getByText('Zobrazit další reference').click();
+  await expect(page.getByText('Pavel', { exact: true })).toBeVisible();
+  await expect(page.getByText('Danica', { exact: true })).toBeVisible();
 });
 
 test('homepage links to the chatbot and tracks the click with Umami', async ({ page }) => {
