@@ -1,0 +1,123 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const botURL = 'https://t.me/uSkyCzBot?start=UZDRA20';
+---
+
+<BaseLayout
+  title="Mira – průvodkyně Vědomým uzdravením"
+  description="Promluvte si v Telegramu s Mirou, AI průvodkyní uzdravením, která zná obsah knihy Magie Vědomého Uzdravení. Prvních 20 zpráv je zdarma."
+>
+  <section class="bg-gradient-to-b from-primary-dark to-primary text-white py-20 px-4">
+    <div class="max-w-3xl mx-auto text-center">
+      <p class="text-accent/80 text-sm uppercase tracking-widest mb-4">
+        Mira · průvodkyně uzdravením
+      </p>
+      <h1 class="text-4xl sm:text-5xl font-serif font-bold mb-6 leading-tight">
+        Promluvte si s Mirou
+      </h1>
+      <p class="text-lg sm:text-xl text-accent/90 leading-relaxed max-w-2xl mx-auto mb-8">
+        Mira zná obsah knihy <em>Magie Vědomého Uzdravení</em> a pomůže vám lépe
+        porozumět 21dennímu postupu, komunikaci s tělem i práci s energií, záměrem a
+        vizualizací.
+      </p>
+      <a
+        href={botURL}
+        target="_blank"
+        rel="noopener noreferrer"
+        data-umami-event="chatbot-open"
+        data-umami-event-bot="vedome-uzdraveni"
+        data-umami-event-placement="mira-page-hero"
+        class="bg-white text-primary-dark font-bold px-8 py-4 rounded-xl hover:bg-accent transition-colors text-lg inline-block"
+      >
+        Otevřít rozhovor s Mirou v Telegramu →
+      </a>
+      <p class="mt-4 text-sm text-accent/80">
+        Prvních 20 zpráv zdarma · další si můžete kdykoli dokoupit
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-accent/20 py-16 px-4">
+    <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12 md:gap-16">
+      <div>
+        <p class="text-primary font-semibold uppercase tracking-widest text-xs mb-3">
+          Inspirace
+        </p>
+        <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">
+          Na co se můžete Miry zeptat
+        </h2>
+        <ul class="space-y-4 text-text">
+          <li class="flex gap-3">
+            <span class="text-primary font-bold" aria-hidden="true">✓</span>
+            <span>Jak podle knihy nastartovat samočinné uzdravování těla?</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-primary font-bold" aria-hidden="true">✓</span>
+            <span>Jak se svým tělem mluvit a naslouchat jeho odpovědím?</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-primary font-bold" aria-hidden="true">✓</span>
+            <span>Jak probíhá meditace Strom života a k čemu v postupu slouží?</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="text-primary font-bold" aria-hidden="true">✓</span>
+            <span>Jak při jednotlivých krocích pracovat s energií, záměrem a vizualizací?</span>
+          </li>
+        </ul>
+      </div>
+
+      <div>
+        <p class="text-primary font-semibold uppercase tracking-widest text-xs mb-3">
+          Jednoduše
+        </p>
+        <h2 class="text-2xl font-serif font-bold text-primary-dark mb-6">Jak to funguje</h2>
+        <ol class="space-y-5 text-text">
+          <li class="flex gap-4">
+            <span class="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center">1</span>
+            <p class="pt-1">Otevřete rozhovor v aplikaci Telegram.</p>
+          </li>
+          <li class="flex gap-4">
+            <span class="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center">2</span>
+            <p class="pt-1">Položte Miře otázku nebo popište, čemu chcete lépe porozumět.</p>
+          </li>
+          <li class="flex gap-4">
+            <span class="shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary font-bold flex items-center justify-center">3</span>
+            <p class="pt-1">Prvních 20 zpráv využijte zdarma. Potom si můžete dokoupit další a pokračovat.</p>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section class="max-w-3xl mx-auto px-4 py-16 text-center">
+    <h2 class="text-2xl sm:text-3xl font-serif font-bold text-primary-dark mb-4">
+      Začněte otázkou, která je pro vás právě důležitá
+    </h2>
+    <p class="text-muted mb-8">
+      Rozhovor vede umělá inteligence, nikoli přímo Jan Čejka.
+    </p>
+    <a
+      href={botURL}
+      target="_blank"
+      rel="noopener noreferrer"
+      data-umami-event="chatbot-open"
+      data-umami-event-bot="vedome-uzdraveni"
+      data-umami-event-placement="mira-page-footer"
+      class="bg-primary text-white font-bold px-8 py-4 rounded-xl hover:bg-primary-light transition-colors text-lg inline-block"
+    >
+      Promluvit si s Mirou →
+    </a>
+  </section>
+
+  <aside class="max-w-3xl mx-auto px-4 pb-16">
+    <div class="rounded-xl border border-accent/50 bg-white p-6 sm:p-8">
+      <h2 class="font-serif font-bold text-primary-dark mb-3">Důležité upozornění</h2>
+      <p class="text-sm leading-relaxed text-muted">
+        Mira nabízí podněty k osobnímu zamyšlení, nenahrazuje lékaře, psychoterapeuta ani
+        odbornou diagnózu a může se mýlit. Při akutních nebo závažných obtížích vyhledejte
+        odbornou pomoc. Do chatu neposílejte údaje, podle kterých vás lze identifikovat.
+      </p>
+    </div>
+  </aside>
+</BaseLayout>
